@@ -215,11 +215,13 @@ class Index extends Base
         $res = makeRequest($wx_request_url, $params);
 
         if ($res['code'] !== 200 || !isset($res['result']) || !isset($res['result'])) {
-            return json(ret_message('requestTokenFailed'));
+//            return json(ret_message('requestTokenFailed'));
+            return $res['result']
         }
         $reqData = json_decode($res['result'], true);
         if (!isset($reqData['session_key'])) {
-            return json(ret_message('requestTokenFailed'));
+//            return json(ret_message('requestTokenFailed'));
+            return $res['result'];
         }
         $sessionKey = $reqData['session_key'];
 
@@ -232,7 +234,7 @@ class Index extends Base
          */
         $signature2 = sha1($rawData . $sessionKey);
 
-        if ($signature2 !== $signature) return ret_message("signNotMatch");
+//        if ($signature2 !== $signature) return ret_message("signNotMatch");
 
         /**
          *
@@ -241,10 +243,11 @@ class Index extends Base
          * （使用官方提供的方法即可）
          */
         $pc = new WXBizDataCrypt($wx_request_url, $sessionKey);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+        $errCode = $pc->decryptData($encryptedData, $iv, $data);
 
         if ($errCode !== 0) {
-            return json(ret_message("encryptDataNotMatch"));
+//            return json(ret_message("encryptDataNotMatch"));
+            return $data;
         }
 
 
@@ -272,6 +275,7 @@ class Index extends Base
         $ret = lang($message);
 
         if (count($ret) != 2) {
+
             return ['result'=>-1,'message'=>'未知错误'];
         }
         return array(
