@@ -49,6 +49,94 @@ class Index extends Base
         }
     }
 
+
+    function http_send($url, $params, $method = 'GET', $header = array(), $multi = false){
+        $opts = array(
+            CURLOPT_TIMEOUT    => 30,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_HTTPHEADER   => $header
+        );
+        /* 根据请求类型设置特定参数 */
+        switch(strtoupper($method)){
+            case 'GET':
+                $opts[CURLOPT_URL] = $url . '?' . http_build_query($params);
+                break;
+            case 'POST':
+                //判断是否传输文件
+                $params = $multi ? $params : http_build_query($params);
+                $opts[CURLOPT_URL] = $url;
+                $opts[CURLOPT_POST] = 1;
+                $opts[CURLOPT_POSTFIELDS] = $params;
+                break;
+            default:
+                throw new Exception('不支持的请求方式！');
+        }
+        /* 初始化并执行curl请求 */
+        $ch = curl_init();
+        curl_setopt_array($ch, $opts);
+        $data = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+        if($error) throw new Exception('请求发生错误：' . $error);
+        return $data;
+    }
+
+    public  function user_login(){
+        $APPID = 'wx3dd12da36570cd80';
+        $AppSecret = '7799fedb17fd1463543704571be52cb4';;
+        $wx_request_url = 'https://api.weixin.qq.com/sns/jscode2session';
+        $code = input("code");
+        $param = array(
+            'appid' => $APPID,
+            'secret' => $AppSecret,
+            'js_code' => $code,
+            'grant_type' => 'authorization_code'
+        );
+        // 一个使用curl实现的get方法请求
+        $arr = http_send($wx_request_url, $param, 'post');
+        $arr = json_decode($arr,true);
+        if(isset($arr['errcode']) && !empty($arr['errcode'])){
+            return json(['code'=>'2','message'=>$arr['errmsg'],"result"=>null]);
+        }
+        $openid = $arr['openid'];
+        $session_key = $arr['session_key'];
+
+        // 数据签名校验
+        $signature = input("signature");
+        $signature2 = sha1($_GET['rawData'].$session_key);  //别用框架自带的input,会过滤掉必要的数据
+        if ($signature != $signature2) {
+            $msg = "shibai 1";
+            return json(['code'=>'2','message'=>'获取失败',"result"=>$msg]);
+        }
+
+        //开发者如需要获取敏感数据，需要对接口返回的加密数据( encryptedData )进行对称解密
+        $encryptedData = $_GET['encryptedData'];
+        $iv = $_GET['iv'];
+        include_once "../api/wxBizDataCrypt.php";
+        $pc = new \WXBizDataCrypt($APPID, $session_key);
+        $errCode = $pc->decryptData($encryptedData, $iv, $data);  //其中$data包含用户的所有数据
+        if ($errCode != 0) {
+            return json(['code'=>'2','message'=>'获取失败',"result"=>null]);
+        }
+        /****** */
+        //写自己的逻辑： 操作数据库等操作
+        /****** */
+        //生成第三方3rd_session
+        $session3rd  = null;
+        $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        $max = strlen($strPol)-1;
+        for($i=0;$i<16;$i++){
+            $session3rd .=$strPol[rand(0,$max)];
+        }
+        return json(['code'=>'1','message'=>'获取成功',"result"=>$session3rd]);
+
+    }
+
+
+
+
     public function sendCode(){
         $APPID = 'wx3dd12da36570cd80';
         $AppSecret = '7799fedb17fd1463543704571be52cb4';
