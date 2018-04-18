@@ -90,6 +90,7 @@ class Index extends Base
             $save['address'] = $data['city'];
             $save['time'] = time();
             $map['openid'] = $data['openId'];
+            json($data)->send();
             !empty($data['unionId']) && $save['unionId'] = $data['unionId'];
 
             $res = Db::name('user') -> where($map) -> find();
@@ -111,7 +112,7 @@ class Index extends Base
         for($i=0;$i<16;$i++){
             $session3rd .=$strPol[rand(0,$max)];
         }
-         echo $session3rd;
+//         echo $session3rd;
     }
     public function vegt($url){
         $info = curl_init();
