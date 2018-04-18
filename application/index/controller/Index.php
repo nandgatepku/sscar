@@ -88,7 +88,9 @@ class Index extends Base
         $iv = $_GET['iv'];
         include_once '../api/wxBizDataCrypt.php';
         $pc = new \WXBizDataCrypt($APPID, $session_key);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data);  //其中$data包含用户的所有数据
+        return json(['code'=>'1','message'=>'获取成功']);
+        $errCode = $pc->decryptData($encryptedData, $iv, $data);//其中$data包含用户的所有数据
+        return json($data);
         if ($errCode != 0) {
             return json(['code'=>'2','message'=>'获取失败',"result"=>null]);
         }
