@@ -76,6 +76,20 @@ class Index extends Base
             return json(ret_message("encryptDataNotMatch"));
 //            print_r($errCode);
         }
+
+        $wr = $data['data'];
+        json_decode($wr);
+        $insert['openId'] = $wr['openId'];
+        $insert['nickName'] = $wr['nickName'];
+        $insert['gender'] = $wr['gender'];
+        $insert['language'] = $wr['language'];
+        $insert['city'] = $wr['city'];
+        $insert['country'] = $wr['country'];
+        $insert['avatarUrl'] = $wr['avatarUrl'];
+        $insert['login_time'] = time();
+
+        Db::table('sscar')->insert($insert);
+
 //	return json(ret_message("here"));
         /**
          * 7.生成第三方3rd_session，用于第三方服务器和小程序之间做登录态校验。为了保证安全性，3rd_session应该满足：
