@@ -216,7 +216,7 @@ class Index extends Base
 
         if ($res['code'] !== 200 || !isset($res['result']) || !isset($res['result'])) {
 //            return json(ret_message('requestTokenFailed'));
-            return $res['result']
+            return $res['result'];
         }
         $reqData = json_decode($res['result'], true);
         if (!isset($reqData['session_key'])) {
