@@ -114,7 +114,7 @@ class Index extends Base
         //开发者如需要获取敏感数据，需要对接口返回的加密数据( encryptedData )进行对称解密
         $encryptedData = $_GET['encryptedData'];
         $iv = $_GET['iv'];
-        include_once "../api/wxBizDataCrypt.php";
+        include_once '../api/wxBizDataCrypt.php';
         $pc = new \WXBizDataCrypt($APPID, $session_key);
         $errCode = $pc->decryptData($encryptedData, $iv, $data);  //其中$data包含用户的所有数据
         if ($errCode != 0) {
@@ -145,7 +145,7 @@ class Index extends Base
         $arr = $this -> vegt($url);
 
         $arr = json_decode($arr,true);
-        // $openid = $arr['openid'];
+        $openid = $arr['openid'];
         $session_key = $arr['session_key'];
 
         // 数字签名校验

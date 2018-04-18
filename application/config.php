@@ -49,6 +49,8 @@ return [
     // 控制器类后缀
     'controller_suffix'      => false,
 
+    "LOAD_EXT_FILE"=>"Base",
+
     // +----------------------------------------------------------------------
     // | 模块设置
     // +----------------------------------------------------------------------
@@ -237,11 +239,5 @@ return [
         'list_rows' => 15,
     ],
 
-    // wx配置
-    'wx'  => [
-        'url' => 'https://api.weixin.qq.com/sns/jscode2session',
-        'appid' => 'wx3dd12da36570cd80',
-        'secret' => '7799fedb17fd1463543704571be52cb4',
-        'grant_type' => 'authorization_code'
-    ],
+
 ];
