@@ -39,7 +39,7 @@ function http_send($url, $params, $method = 'GET', $header = array(), $multi = f
 //        default:
 //            throw new Exception('不支持的请求方式！');
     }
-    print_r($opts);
+//    print_r($opts);
     /* 初始化并执行curl请求 */
     $ch = curl_init();
     curl_setopt_array($ch, $opts);
@@ -47,6 +47,6 @@ function http_send($url, $params, $method = 'GET', $header = array(), $multi = f
     $error = curl_error($ch);
     curl_close($ch);
 //    if($error) throw new Exception('请求发生错误：' . $error);
-    echo $data;
+//    echo $data;
     return $data;
 }
