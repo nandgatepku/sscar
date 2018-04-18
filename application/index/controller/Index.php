@@ -90,20 +90,19 @@ class Index extends Base
             $save['address'] = $data['city'];
             $save['time'] = time();
             $map['openid'] = $data['openId'];
-            json($data)->send();
             !empty($data['unionId']) && $save['unionId'] = $data['unionId'];
 
-            $res = Db::name('user') -> where($map) -> find();
-            if(!$res){
-                $db = Db::name('user') -> insert($save);
-                if($db !== false){
-                    echo "保存用户成功";
-                }else{
-                    echo "error";
-                }
-            }else{
-                echo "用户已经存在";
-            }
+//            $res = Db::name('user') -> where($map) -> find();
+//            if(!$res){
+//                $db = Db::name('user') -> insert($save);
+//                if($db !== false){
+//                    echo "保存用户成功";
+//                }else{
+//                    echo "error";
+//                }
+//            }else{
+//                echo "用户已经存在";
+//            }
         }
         //生成第三方3rd_session
         $session3rd  = null;
@@ -112,7 +111,7 @@ class Index extends Base
         for($i=0;$i<16;$i++){
             $session3rd .=$strPol[rand(0,$max)];
         }
-//         echo $session3rd;
+        return json(['code'=>'1','message'=>'获取成功',"result"=>$session3rd]);
     }
     public function vegt($url){
         $info = curl_init();
