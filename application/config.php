@@ -236,4 +236,12 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    // wx配置
+    'wx'  => [
+        'url' => 'https://api.weixin.qq.com/sns/jscode2session',
+        'appid' => 'wx3dd12da36570cd80',
+        'secret' => '7799fedb17fd1463543704571be52cb4',
+        'grant_type' => 'authorization_code'
+    ],
 ];
