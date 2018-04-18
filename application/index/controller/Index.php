@@ -70,7 +70,7 @@ class Index extends Base
 //        $session_key = $weixin_user_data->session_key;
         $arr = json_decode($arr,true);
         if(isset($arr['errcode']) && !empty($arr['errcode'])){
-            return json(['code'=>'2','message'=>$arr['errmsg'],"result"=>null]);
+            json(['code'=>'2','message'=>$arr['errmsg'],"result"=>null])->send();
         }
         $openid = $arr['openid'];
         $session_key = $arr['session_key'];
@@ -80,7 +80,7 @@ class Index extends Base
         $signature2 = sha1($_GET['rawData'].$session_key);  //别用框架自带的input,会过滤掉必要的数据
         if ($signature != $signature2) {
             $msg = "shibai 1";
-            return json(['code'=>'2','message'=>'获取失败',"result"=>$msg]);
+            json(['code'=>'2','message'=>'获取失败',"result"=>$msg])->send();
         }
 
         //开发者如需要获取敏感数据，需要对接口返回的加密数据( encryptedData )进行对称解密
@@ -90,7 +90,7 @@ class Index extends Base
         $pc = new \WXBizDataCrypt($APPID, $session_key);
         $errCode = $pc->decryptData($encryptedData, $iv, $data);  //其中$data包含用户的所有数据
         if ($errCode != 0) {
-            return json(['code'=>'2','message'=>'获取失败',"result"=>null]);
+            json(['code'=>'2','message'=>'获取失败',"result"=>null])->send();
         }
         /****** */
         //写自己的逻辑： 操作数据库等操作
@@ -102,7 +102,7 @@ class Index extends Base
         for($i=0;$i<16;$i++){
             $session3rd .=$strPol[rand(0,$max)];
         }
-        return json(['code'=>'1','message'=>'获取成功',"result"=>$session3rd]);
+        json(['code'=>'1','message'=>'获取成功',"result"=>$session3rd])->send();
 
     }
 
