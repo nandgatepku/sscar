@@ -265,10 +265,10 @@ class Index extends Base
         $data['session3rd'] = $session3rd;
         cache($session3rd, $data['openId'] . $sessionKey);
 
-
-
-        return json($data);
+//        return json($data);
+        return ['result'=>11,'message'=>'ok'];
     }
+
 
     function ret_message($message = "") {
         if ($message == "") return ['result'=>0, 'message'=>''];
