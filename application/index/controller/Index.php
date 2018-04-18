@@ -111,7 +111,7 @@ class Index extends Base
         for($i=0;$i<16;$i++){
             $session3rd .=$strPol[rand(0,$max)];
         }
-        // echo $session3rd;
+         echo $session3rd;
     }
     public function vegt($url){
         $info = curl_init();
