@@ -88,9 +88,7 @@ class Index extends Base
         $iv = $_GET['iv'];
         include_once '../api/wxBizDataCrypt.php';
         $pc = new \WXBizDataCrypt($APPID, $session_key);
-        return json(['code'=>'1','message'=>'获取成功']);
         $errCode = $pc->decryptData($encryptedData, $iv, $data);//其中$data包含用户的所有数据
-        return json($data);
         if ($errCode != 0) {
             return json(['code'=>'2','message'=>'获取失败',"result"=>null]);
         }
@@ -205,13 +203,16 @@ class Index extends Base
          * 为了自身应用安全，session_key 不应该在网络上传输。
          * 接口地址："https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code"
          */
+        $APPID = 'wx3dd12da36570cd80';
+        $AppSecret = '7799fedb17fd1463543704571be52cb4';
+        $wx_request_url = 'https://api.weixin.qq.com/sns/jscode2session';
         $params = [
-            'appid' => $this->appid,
-            'secret' => $this->secret,
+            'appid' => $APPID,
+            'secret' => $AppSecret,
             'js_code' => $code,
-            'grant_type' => $this->grant_type
+            'grant_type' => 'authorization_code'
         ];
-        $res = makeRequest($this->url, $params);
+        $res = makeRequest($wx_request_url, $params);
 
         if ($res['code'] !== 200 || !isset($res['result']) || !isset($res['result'])) {
             return json(ret_message('requestTokenFailed'));
@@ -239,7 +240,7 @@ class Index extends Base
          * 解得的信息中也包括openid, 也需要与第4步返回的openid匹配. 解密失败或不匹配应该返回客户相应错误.
          * （使用官方提供的方法即可）
          */
-        $pc = new WXBizDataCrypt($this->appid, $sessionKey);
+        $pc = new WXBizDataCrypt($wx_request_url, $sessionKey);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );
 
         if ($errCode !== 0) {
