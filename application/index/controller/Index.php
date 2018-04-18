@@ -50,42 +50,9 @@ class Index extends Base
     }
 
 
-    function http_send($url, $params, $method = 'GET', $header = array(), $multi = false){
-        $opts = array(
-            CURLOPT_TIMEOUT    => 30,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
-            CURLOPT_HTTPHEADER   => $header
-        );
-        /* 根据请求类型设置特定参数 */
-        switch(strtoupper($method)){
-            case 'GET':
-                $opts[CURLOPT_URL] = $url . '?' . http_build_query($params);
-                break;
-            case 'POST':
-                //判断是否传输文件
-                $params = $multi ? $params : http_build_query($params);
-                $opts[CURLOPT_URL] = $url;
-                $opts[CURLOPT_POST] = 1;
-                $opts[CURLOPT_POSTFIELDS] = $params;
-                break;
-            default:
-                throw new Exception('不支持的请求方式！');
-        }
-        /* 初始化并执行curl请求 */
-        $ch = curl_init();
-        curl_setopt_array($ch, $opts);
-        $data = curl_exec($ch);
-        $error = curl_error($ch);
-        curl_close($ch);
-        if($error) throw new Exception('请求发生错误：' . $error);
-        return $data;
-    }
-
     public  function user_login(){
         $APPID = 'wx3dd12da36570cd80';
-        $AppSecret = '7799fedb17fd1463543704571be52cb4';;
+        $AppSecret = '7799fedb17fd1463543704571be52cb4';
         $wx_request_url = 'https://api.weixin.qq.com/sns/jscode2session';
         $code = input("code");
         $param = array(
@@ -94,8 +61,13 @@ class Index extends Base
             'js_code' => $code,
             'grant_type' => 'authorization_code'
         );
+        print_r($param);
         // 一个使用curl实现的get方法请求
-        $arr = http_send($wx_request_url, $param, 'post');
+        $arr = http_send($wx_request_url, $param, 'get');
+//        $user_info_url = sprintf("%s?appid=%s&secret=%s&js_code=%s&grant_type=%",$wx_request_url,$param['appid'],$param['secret'],$param['js_code'],$param['grant_type']);
+//        echo $user_info_url;
+//        $weixin_user_data = json_decode(get_url($user_info_url));
+//        $session_key = $weixin_user_data->session_key;
         $arr = json_decode($arr,true);
         if(isset($arr['errcode']) && !empty($arr['errcode'])){
             return json(['code'=>'2','message'=>$arr['errmsg'],"result"=>null]);
@@ -145,7 +117,7 @@ class Index extends Base
         $arr = $this -> vegt($url);
 
         $arr = json_decode($arr,true);
-        $openid = $arr['openid'];
+//        $openid = $arr['openid'];
         $session_key = $arr['session_key'];
 
         // 数字签名校验
