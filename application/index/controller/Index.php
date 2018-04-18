@@ -77,15 +77,14 @@ class Index extends Base
 //            print_r($errCode);
         }
 
-        $wr = $data['data'];
-        json_decode($wr);
-        $insert['openId'] = $wr['openId'];
-        $insert['nickName'] = $wr['nickName'];
-        $insert['gender'] = $wr['gender'];
-        $insert['language'] = $wr['language'];
-        $insert['city'] = $wr['city'];
-        $insert['country'] = $wr['country'];
-        $insert['avatarUrl'] = $wr['avatarUrl'];
+        $wr = json_decode($data);
+        $insert['openId'] = $wr -> openId;
+        $insert['nickName'] = $wr -> nickName;
+        $insert['gender'] = $wr -> gender;
+        $insert['language'] = $wr -> language;
+        $insert['city'] = $wr -> city;
+        $insert['country'] = $wr -> country;
+        $insert['avatarUrl'] = $wr -> avatarUrl;
         $insert['login_time'] = time();
 
         Db::table('sscar')->insert($insert);
