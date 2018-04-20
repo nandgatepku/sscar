@@ -125,15 +125,17 @@ class Index extends Base
             if($info){
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
                 $auth = '0LqwhUOntx1GgGDq5ujb5HU/qMRhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDc1MzcmdD0xNTI0MjMxNTM3JnI9ODQ1MiZ1PTAmZj0=';
+
+                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.'/'.$infoadd;
+                $opt = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
+                $opt_data = json_encode($opt);
+
                 $header = array(
                     'Host:recognition.image.myqcloud.com',
-                    'Content-Length:100',
+                    'Content-Length:'.strlen($opt_data),
                     'Content-Type:application/json',
                     'Authorization:'.$auth
                 );
-                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.'/'.$infoadd;
-                $opt_data = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
-                $opt_data = json_encode($opt_data);
 
                 $curl = curl_init();  //初始化
                 curl_setopt($curl,CURLOPT_URL,$apiurl);  //设置url
