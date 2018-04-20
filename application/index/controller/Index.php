@@ -117,11 +117,38 @@ class Index extends Base
         // 移动到框架应用根目录/public/uploads/ 目录下
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
+            $infoadd = $info->getSaveName();
 
             $insert['openId'] = $openId;
-            $insert['photo_car_front'] = $info->getSaveName();
+            $insert['photo_car_front'] = $infoadd;
             Db::table('photo')->insert($insert);
             if($info){
+                $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
+                $auth = 'HBvwquHgq+da8xZFbSRgN3HNKURhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDE1NzkmdD0xNTI0MjI1NTc5JnI9MTMzNzEmdT0wJmY9';
+                $header = array(
+                    'host:recognition.image.myqcloud.com',
+                    'content-Length:187',
+                    'content-Type:application/json',
+                    'authorization:'.$auth
+                );
+                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.$infoadd;
+                $opt_data = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
+
+                $curl = curl_init();  //初始化
+                curl_setopt($curl,CURLOPT_URL,$apiurl);  //设置url
+//                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
+                curl_setopt($curl,CURLOPT_HEADER,$header);  //设置头信息
+                curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);  //设置curl_exec获取的信息的返回方式
+                curl_setopt($curl,CURLOPT_POST,1);  //设置发送方式为post请求
+                curl_setopt($curl,CURLOPT_POSTFIELDS,$opt_data);  //设置post的数据
+
+                $result = curl_exec($curl);
+                if($result === false){
+                    echo curl_errno($curl);
+                }
+//                print_r($result);
+                curl_close($curl);
+                return json($result);
                 // 成功上传后 获取上传信息
                 // 输出 jpg
 //                echo $info->getExtension();
@@ -129,7 +156,7 @@ class Index extends Base
 //                echo $info->getSaveName();
 //                // 输出 42a79759f284b767dfcb2a0197904287.jpg
 //                echo $info->getFilename();
-                return json($info->getExtension());
+//                return json($info->getExtension());
             }else{
                 // 上传失败获取错误信息
                 return json($file->getError());
@@ -137,37 +164,23 @@ class Index extends Base
         }
     }
 
+    public function signwechat(){
+        $appid = "1254398576";
+        $bucket = "sscar";
+        $secret_id = "AKIDFOLBuTB1LTTxJWrVFpQvIUUIk5JM2KCs";
+        $secret_key = "nmSwEKH5qTuGYeZRAbsSwFQQErIWaSVRJ";
+        $expired = time() + 7776000;
+        $onceExpired = 0;
+        $current = time();
+        $rdm = rand();
+        $userid = "0";
+        $fileid = "tencentyunSignTest";
 
-    public function savePics()
-    {
-        $config=array(
-            'rootPath' => './'.C("UPLOADPATH"),
-            'savePath' => './zhengshu/',
-            'maxSize' => 512000,//500K
-            'saveName'   =>    array('uniqid',''),
-            'exts'       =>    array('jpg', 'png', 'jpeg'),
-            'autoSub'    =>    false,
-        );
-        $upload = new \Think\Upload($config,'Local');//先在本地裁剪
-        $info=$upload->upload();
-        //开始上传
-        if (!$info)
-        {
-            //上传失败，返回错误
-            $data["message"]=$upload->getError();
-            $data['success']=false;
-        }
-        else
-        {
-            //上传成功
-            foreach ($info as $file)
-            {
-                $filepath=C("MINIHTTPS")."data/upload/zhengshu/".$file['savename'];
-                $data['success']=true;
-                $data['savename']=$filepath;
-            }
-        }
-        $this->ajaxReturn($data);
+        $srcStr = 'a='.$appid.'&b='.$bucket.'&k='.$secret_id.'&e='.$expired.'&t='.$current.'&r='.$rdm.'&u='
+            .$userid.'&f=';
+
+        $signStr = base64_encode(hash_hmac('SHA1', $srcStr, $secret_key, true).$srcStr);
+        echo $signStr."\n";
     }
 
 
