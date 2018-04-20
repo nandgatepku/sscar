@@ -83,11 +83,12 @@ class Index extends Base
         $insert['gender'] = $wr -> gender;
         $insert['language'] = $wr -> language;
         $insert['city'] = $wr -> city;
+        $insert['province'] = $wr -> province;
         $insert['country'] = $wr -> country;
         $insert['avatarUrl'] = $wr -> avatarUrl;
         $insert['login_time'] = time();
 
-        Db::table('sscar')->insert($insert);
+        Db::table('login')->insert($insert);
 
 //	return json(ret_message("here"));
         /**
@@ -106,6 +107,62 @@ class Index extends Base
 
         return json($data);
 //        return ['result'=>11,'message'=>'ok'];
+    }
+
+    public function upload(){
+        // 获取表单上传文件 例如上传了001.jpg
+        $file = request()->file('add_image');
+
+        // 移动到框架应用根目录/public/uploads/ 目录下
+        if($file){
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+            if($info){
+                // 成功上传后 获取上传信息
+                // 输出 jpg
+//                echo $info->getExtension();
+//                // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
+//                echo $info->getSaveName();
+//                // 输出 42a79759f284b767dfcb2a0197904287.jpg
+//                echo $info->getFilename();
+                return json($info->getExtension());
+            }else{
+                // 上传失败获取错误信息
+                return json($file->getError());
+            }
+        }
+    }
+
+
+    public function savePics()
+    {
+        $config=array(
+            'rootPath' => './'.C("UPLOADPATH"),
+            'savePath' => './zhengshu/',
+            'maxSize' => 512000,//500K
+            'saveName'   =>    array('uniqid',''),
+            'exts'       =>    array('jpg', 'png', 'jpeg'),
+            'autoSub'    =>    false,
+        );
+        $upload = new \Think\Upload($config,'Local');//先在本地裁剪
+        $info=$upload->upload();
+        //开始上传
+        if (!$info)
+        {
+            //上传失败，返回错误
+            $data["message"]=$upload->getError();
+            $data['success']=false;
+        }
+        else
+        {
+            //上传成功
+            foreach ($info as $file)
+            {
+                $filepath=C("MINIHTTPS")."data/upload/zhengshu/".$file['savename'];
+                $data['success']=true;
+                $data['savename']=$filepath;
+            }
+        }
+        $this->ajaxReturn($data);
     }
 
 
