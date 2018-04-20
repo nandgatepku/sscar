@@ -131,14 +131,15 @@ class Index extends Base
                     'Content-Type:application/json',
                     'Authorization:'.$auth
                 );
-                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.$infoadd;
+                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.'/'.$infoadd;
                 $opt_data = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
                 $opt_data = json_encode($opt_data);
 
                 $curl = curl_init();  //初始化
                 curl_setopt($curl,CURLOPT_URL,$apiurl);  //设置url
 //                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
-                curl_setopt($curl,CURLOPT_HEADER,$header);  //设置头信息
+                curl_setopt($curl,CURLOPT_HEADER,0);  //设置头信息
+                curl_setopt($curl,CURLOPT_HTTPHEADER,$header);  //设置头信息
                 curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);  //设置curl_exec获取的信息的返回方式
                 curl_setopt($curl,CURLOPT_POST,1);  //设置发送方式为post请求
                 curl_setopt($curl,CURLOPT_POSTFIELDS,$opt_data);  //设置post的数据
