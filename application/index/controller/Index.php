@@ -126,10 +126,10 @@ class Index extends Base
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
                 $auth = '0LqwhUOntx1GgGDq5ujb5HU/qMRhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDc1MzcmdD0xNTI0MjMxNTM3JnI9ODQ1MiZ1PTAmZj0=';
                 $header = array(
-                    'host:recognition.image.myqcloud.com',
-                    'content-Length:187',
-                    'content-Type:application/json',
-                    'authorization:'.$auth
+                    'Host:recognition.image.myqcloud.com',
+                    'Content-Length:61',
+                    'Content-Type:application/json',
+                    'Authorization:'.$auth
                 );
                 $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.$infoadd;
                 $opt_data = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
