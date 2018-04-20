@@ -112,11 +112,15 @@ class Index extends Base
     public function upload(){
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('add_image');
-        $openId = $_POST('openId');
+        $openId = $_POST['openId'];
 
         // 移动到框架应用根目录/public/uploads/ 目录下
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
+
+            $insert['openId'] = $openId;
+            $insert['photo_car_front'] = $info->getExtension();
+            Db::table('photo')->insert($insert);
             if($info){
                 // 成功上传后 获取上传信息
                 // 输出 jpg
