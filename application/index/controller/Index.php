@@ -119,7 +119,7 @@ class Index extends Base
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
 
             $insert['openId'] = $openId;
-            $insert['photo_car_front'] = $info->getExtension();
+            $insert['photo_car_front'] = $info->getSaveName();
             Db::table('photo')->insert($insert);
             if($info){
                 // 成功上传后 获取上传信息
