@@ -124,7 +124,7 @@ class Index extends Base
             Db::table('photo')->insert($insert);
             if($info){
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
-                $auth = 'HBvwquHgq+da8xZFbSRgN3HNKURhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDE1NzkmdD0xNTI0MjI1NTc5JnI9MTMzNzEmdT0wJmY9';
+                $auth = '0LqwhUOntx1GgGDq5ujb5HU/qMRhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDc1MzcmdD0xNTI0MjMxNTM3JnI9ODQ1MiZ1PTAmZj0=';
                 $header = array(
                     'host:recognition.image.myqcloud.com',
                     'content-Length:187',
@@ -136,7 +136,7 @@ class Index extends Base
 
                 $curl = curl_init();  //初始化
                 curl_setopt($curl,CURLOPT_URL,$apiurl);  //设置url
-//                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
+                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
                 curl_setopt($curl,CURLOPT_HEADER,$header);  //设置头信息
                 curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);  //设置curl_exec获取的信息的返回方式
                 curl_setopt($curl,CURLOPT_POST,1);  //设置发送方式为post请求
