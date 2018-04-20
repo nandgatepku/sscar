@@ -124,7 +124,7 @@ class Index extends Base
             Db::table('photo')->insert($insert);
             if($info){
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
-                $auth = 'SmysfXDlwdZ4SRtLWn7wzLUNP8VhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzE0OTMwNDMmdD0xNTI0MjM1NDQzJnI9MjMzOCZ1PTAmZj0=';
+                $auth = '0ROlCNpA8Re1f40vILPY/ZxPJClhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURvUnB4cVRzeXVmRVpoY3RvNTl6YzFFRTFiMklMdm9GVCZlPTE1MzE0OTQ5MzEmdD0xNTI0MjM3MzMxJnI9Mjg1OTUmdT0wJmY9';
 
                 $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.'/'.$infoadd;
                 $opt = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
@@ -171,8 +171,8 @@ class Index extends Base
     public function signwechat(){
         $appid = "1254398576";
         $bucket = "sscar";
-        $secret_id = "AKIDFOLBuTB1LTTxJWrVFpQvIUUIk5JM2KCs";
-        $secret_key = "nmSwEKH5qTuGYeZRAbsSwFQQErIWaSVRJ";
+        $secret_id = "AKIDoRpxqTsyufEZhcto59zc1EE1b2ILvoFT";
+        $secret_key = "71iDUYP3TjngMq7C4jOs890e4GEyTihX";
         $expired = time() + 7257600;
         $onceExpired = 0;
         $current = time();
