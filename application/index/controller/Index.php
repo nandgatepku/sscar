@@ -127,16 +127,17 @@ class Index extends Base
                 $auth = '0LqwhUOntx1GgGDq5ujb5HU/qMRhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDc1MzcmdD0xNTI0MjMxNTM3JnI9ODQ1MiZ1PTAmZj0=';
                 $header = array(
                     'Host:recognition.image.myqcloud.com',
-                    'Content-Length:61',
+                    'Content-Length:100',
                     'Content-Type:application/json',
                     'Authorization:'.$auth
                 );
                 $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.$infoadd;
                 $opt_data = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
+                $opt_data = json_encode($opt_data);
 
                 $curl = curl_init();  //初始化
                 curl_setopt($curl,CURLOPT_URL,$apiurl);  //设置url
-                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
+//                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
                 curl_setopt($curl,CURLOPT_HEADER,$header);  //设置头信息
                 curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);  //设置curl_exec获取的信息的返回方式
                 curl_setopt($curl,CURLOPT_POST,1);  //设置发送方式为post请求
