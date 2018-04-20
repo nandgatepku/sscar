@@ -124,7 +124,7 @@ class Index extends Base
             Db::table('photo')->insert($insert);
             if($info){
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
-                $auth = '0LqwhUOntx1GgGDq5ujb5HU/qMRhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzIwMDc1MzcmdD0xNTI0MjMxNTM3JnI9ODQ1MiZ1PTAmZj0=';
+                $auth = 'SmysfXDlwdZ4SRtLWn7wzLUNP8VhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURGT0xCdVRCMUxUVHhKV3JWRnBRdklVVUlrNUpNMktDcyZlPTE1MzE0OTMwNDMmdD0xNTI0MjM1NDQzJnI9MjMzOCZ1PTAmZj0=';
 
                 $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.'/'.$infoadd;
                 $opt = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
@@ -173,7 +173,7 @@ class Index extends Base
         $bucket = "sscar";
         $secret_id = "AKIDFOLBuTB1LTTxJWrVFpQvIUUIk5JM2KCs";
         $secret_key = "nmSwEKH5qTuGYeZRAbsSwFQQErIWaSVRJ";
-        $expired = time() + 7776000;
+        $expired = time() + 7257600;
         $onceExpired = 0;
         $current = time();
         $rdm = rand();
