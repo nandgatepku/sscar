@@ -112,14 +112,13 @@ class Index extends Base
     public function upload(){
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('add_image');
+        $file2 = $file;
         $openId = $_POST['openId'];
 
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
+            $store = $file2->move(ROOT_PATH . 'idcard'  . DS . $openId);
             $infoadd = $info->getSaveName();
-            $del = __PUBLIC__ . '/uploads/'.$openId.'/'.$infoadd;
-            $store = __APP_PATH__ . '/idcard/'.$openId.'/'.$infoadd;
-            copy($del,$store);
 
             $insert['openId'] = $openId;
             $insert['photo_car_front'] = $infoadd;
@@ -155,14 +154,7 @@ class Index extends Base
 //                print_r($result);
                 curl_close($curl);
 
-                if (!unlink($del))
-                {
-                    echo ("Error deleting $del");
-                }
-                else
-                {
-                    return json($result);
-                }
+                return json($result);
 
                 // 成功上传后 获取上传信息
                 // 输出 jpg
