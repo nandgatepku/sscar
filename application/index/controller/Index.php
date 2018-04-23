@@ -189,6 +189,5 @@ class Index extends Base
         $signStr = base64_encode(hash_hmac('SHA1', $srcStr, $secret_key, true).$srcStr);
         echo $signStr."\n";
     }
-
-
+    
 }
