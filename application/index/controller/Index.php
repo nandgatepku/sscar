@@ -112,7 +112,6 @@ class Index extends Base
     public function upload(){
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('add_image');
-        $file2 = $file;
         $openId = $_POST['openId'];
 
         if($file){
@@ -171,6 +170,23 @@ class Index extends Base
         }
     }
 
+    public function inidcard()
+    {
+        $file = request()->file('add_image');
+        $openId = $_POST['openId'];
+        $store = $file->move(ROOT_PATH . 'idcard' . DS . $openId);
+        if ($file) {
+            if ($store) {
+                return json($store);
+            } else {
+                return 'not delete';
+            }
+
+        } else {
+            return json($file->getError());
+        }
+    }
+
     public function signwechat(){
         $appid = "1254398576";
         $bucket = "sscar";
@@ -189,5 +205,5 @@ class Index extends Base
         $signStr = base64_encode(hash_hmac('SHA1', $srcStr, $secret_key, true).$srcStr);
         echo $signStr."\n";
     }
-    
+
 }
