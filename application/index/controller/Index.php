@@ -116,7 +116,6 @@ class Index extends Base
 
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
-            $store = $file2->move(ROOT_PATH . 'idcard'  . DS . $openId);
             $infoadd = $info->getSaveName();
 
             $insert['openId'] = $openId;
@@ -152,6 +151,8 @@ class Index extends Base
                 }
 //                print_r($result);
                 curl_close($curl);
+
+                unlink($dataurl);
 
                 return json($result);
 
