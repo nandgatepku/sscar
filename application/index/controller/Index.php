@@ -114,9 +114,9 @@ class Index extends Base
         $file = request()->file('add_image');
         $openId = $_POST['openId'];
 
-        // 移动到框架应用根目录/public/uploads/ 目录下
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
+            $person = $file->move(ROOT_PATH . 'idcard'  . DS . $openId);
             $infoadd = $info->getSaveName();
 
             $insert['openId'] = $openId;
@@ -152,7 +152,17 @@ class Index extends Base
                 }
 //                print_r($result);
                 curl_close($curl);
-                return json($result);
+
+                $del = __PUBLIC__ . '/uploads/'.$openId.'/'.$infoadd;
+                if (!unlink($del))
+                {
+                    echo ("Error deleting $del");
+                }
+                else
+                {
+                    return json($result);
+                }
+
                 // 成功上传后 获取上传信息
                 // 输出 jpg
 //                echo $info->getExtension();
@@ -171,8 +181,8 @@ class Index extends Base
     public function signwechat(){
         $appid = "1254398576";
         $bucket = "sscar";
-        $secret_id = "AKIDoRpxqTsyufEZhcto59zc1EE1b2ILvoFT";
-        $secret_key = "71iDUYP3TjngMq7C4jOs890e4GEyTihX";
+        $secret_id = "";
+        $secret_key = "";
         $expired = time() + 7257600;
         $onceExpired = 0;
         $current = time();
