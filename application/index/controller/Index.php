@@ -112,20 +112,16 @@ class Index extends Base
     public function upload(){
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('add_image');
-        $openId = $_POST['openId'];
 
         if($file){
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' );
             $infoadd = $info->getSaveName();
 
-            $insert['openId'] = $openId;
-            $insert['photo_car_front'] = $infoadd;
-            Db::table('photo')->insert($insert);
             if($info){
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/drivinglicence';
                 $auth = '0ROlCNpA8Re1f40vILPY/ZxPJClhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURvUnB4cVRzeXVmRVpoY3RvNTl6YzFFRTFiMklMdm9GVCZlPTE1MzE0OTQ5MzEmdD0xNTI0MjM3MzMxJnI9Mjg1OTUmdT0wJmY9';
 
-                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$openId.'/'.$infoadd;
+                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$infoadd;
                 $opt = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
                 $opt_data = json_encode($opt);
 
@@ -152,19 +148,13 @@ class Index extends Base
 //                print_r($result);
                 curl_close($curl);
 
-                unlink($dataurl);
+                unlink('./uploads/'.$infoadd);
+                $p = date("Ymd");
+                rmdir('./uploads/'.$p);
 
                 return json($result);
 
-                // 成功上传后 获取上传信息
-                // 输出 jpg
-//                echo $info->getExtension();
-//                // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
-//                echo $info->getSaveName();
-//                // 输出 42a79759f284b767dfcb2a0197904287.jpg
-//                echo $info->getFilename();
-//                return json($info->getExtension());
-            }else{
+              }else{
                 // 上传失败获取错误信息
                 return json($file->getError());
             }
@@ -176,6 +166,10 @@ class Index extends Base
         $file = request()->file('add_image');
         $openId = $_POST['openId'];
         $store = $file->move(ROOT_PATH . 'idcard' . DS . $openId);
+        $infoadd = $store->getSaveName();
+        $insert['openId'] = $openId;
+        $insert['photo_car_front'] = $infoadd;
+        Db::table('photo')->insert($insert);
         if ($file) {
             if ($store) {
                 return json($store);
