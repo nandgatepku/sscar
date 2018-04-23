@@ -112,11 +112,12 @@ class Index extends Base
     public function upload(){
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('add_image');
+        $file2 = request()->file('add_image');
         $openId = $_POST['openId'];
 
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . $openId);
-            $person = $file->move(ROOT_PATH . 'idcard'  . DS . $openId);
+            $person = $file2->move(ROOT_PATH . 'idcard'  . DS . $openId);
             $infoadd = $info->getSaveName();
 
             $insert['openId'] = $openId;
