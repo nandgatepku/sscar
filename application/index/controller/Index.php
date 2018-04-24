@@ -63,8 +63,7 @@ class Index extends Base
 
         if ($signature2 !== $signature) return ret_message("signNotMatch");
 
-        /**
-         *
+        /*
          * 6.使用第4步返回的session_key解密encryptData, 将解得的信息与rawData中信息进行比较, 需要完全匹配,
          * 解得的信息中也包括openid, 也需要与第4步返回的openid匹配. 解密失败或不匹配应该返回客户相应错误.
          * （使用官方提供的方法即可）
@@ -129,7 +128,7 @@ class Index extends Base
                     'Host:recognition.image.myqcloud.com',
                     'Content-Length:'.strlen($opt_data),
                     'Content-Type:application/json',
-                    'Authorization:'.$auth
+                      'Authorization:'.$auth
                 );
 
                 $curl = curl_init();  //初始化
