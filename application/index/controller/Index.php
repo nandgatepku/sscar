@@ -235,6 +235,7 @@ class Index extends Base
         $insert['photo_studentcard'] = $studentcard;
         $insert['photo_car_front'] = $car_front;
         $insert['status'] = 0;
+        $insert['update_time'] = time();
 
         $where['openId'] =$openId;
         $sql_find = Db::table('photo')->where($where)->find();
@@ -242,7 +243,7 @@ class Index extends Base
             $sql_photo = Db::table('photo')->where($where)->update($insert);
         }else{
             $insert['openId'] = $openId;
-            $sql_photo = Db::table('photo')->where($where)->insert($insert);
+            $sql_photo = Db::table('photo')->insert($insert);
         }
         if($sql_photo){
             $res['res'] = 'ok';
