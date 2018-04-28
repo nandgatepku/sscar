@@ -181,6 +181,7 @@ class Index extends Base
                 }
 //                print_r($result);
                 curl_close($curl);
+                $result['imgadd'] = $infoadd;
 
 //                unlink('./uploads/'.$infoadd);
 //                $p = date("Ymd");
@@ -210,7 +211,7 @@ class Index extends Base
         Db::table('upload')->insert($insert);
         if ($file) {
             if ($store) {
-                return json($store);
+                return json($infoadd);
             } else {
                 return 'can not upload';
             }
