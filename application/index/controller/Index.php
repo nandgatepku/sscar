@@ -128,7 +128,12 @@ class Index extends Base
                 $p = date("Ymd");
                 rmdir('./uploads/'.$p);
 
-                return json($result);
+                $res_imgadd = array (
+                    "res"  => $result,
+                    "imgadd" => infoadd,
+                );
+
+                return json($res_imgadd);
 
               }else{
                 // 上传失败获取错误信息
