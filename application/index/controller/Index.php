@@ -260,6 +260,27 @@ class Index extends Base
         }
     }
 
+    public function apply_txt(){
+        $driver_name = $_POST['driver_name'];
+        $car_number = $_POST['car_number'];
+        $openId = $_POST['openId'];
+
+        $update['driver_name'] = $driver_name;
+        $update['car_number'] = $car_number;
+
+        $where['openId'] =$openId;
+
+        $sql_find = Db::table('photo')->where($where)->find();
+        if($sql_find){
+            $sql_photo = Db::table('photo')->where($where)->update($update);
+        }
+        if($sql_photo){
+            $res['res'] = 'ok';
+            return json($res);
+        }
+
+    }
+
     public function signwechat(){
         $appid = "1254398576";
         $bucket = "sscar";
