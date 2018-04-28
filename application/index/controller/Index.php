@@ -214,9 +214,42 @@ class Index extends Base
             } else {
                 return 'can not upload';
             }
-
         } else {
             return json($file->getError());
+        }
+    }
+
+    public function sql_photo(){
+        $driver_front = $_POST['driver_front'];
+        $driver_back = $_POST['driver_back'];
+        $driving_front = $_POST['driving_front'];
+        $driving_back = $_POST['driving_back'];
+        $studentcard = $_POST['studentcard'];
+        $car_front = $_POST['car_front'];
+        $openId = $_POST['openId'];
+
+        $insert['photo_driver_front'] = $driver_front;
+        $insert['photo_driver_back'] = $driver_back;
+        $insert['photo_driving_front'] = $driving_front;
+        $insert['photo_driving_back'] = $driving_back;
+        $insert['photo_studentcard'] = $studentcard;
+        $insert['photo_car_front'] = $car_front;
+        $insert['status'] = 0;
+
+        $where['openId'] =$openId;
+        $sql_find = Db::table('photo')->where($where)->find();
+        if($sql_find){
+            $sql_photo = Db::table('photo')->where($where)->update($insert);
+        }else{
+            $insert['openId'] = $openId;
+            $sql_photo = Db::table('photo')->where($where)->insert($insert);
+        }
+        if($sql_photo){
+            $res['res'] = 'ok';
+            return json($res);
+        }else{
+            $res['res'] = 'fail';
+            return json($res);
         }
     }
 
