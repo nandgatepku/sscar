@@ -14,22 +14,12 @@ class Index extends Base
     }
 
     public function wxLogin() {
-        /**
-         * 3.小程序调用server获取token接口, 传入code, rawData, signature, encryptData.
-         */
         $code = input("code", '', 'htmlspecialchars_decode');
         $rawData = input("rawData", '', 'htmlspecialchars_decode');
         $signature = input("signature", '', 'htmlspecialchars_decode');
         $encryptedData = input("encryptedData", '', 'htmlspecialchars_decode');
         $iv = input("iv", '', 'htmlspecialchars_decode');
 
-        /**
-         * 4.server调用微信提供的jsoncode2session接口获取openid, session_key, 调用失败应给予客户端反馈
-         * , 微信侧返回错误则可判断为恶意请求, 可以不返回. 微信文档链接
-         * 这是一个 HTTP 接口，开发者服务器使用登录凭证 code 获取 session_key 和 openid。其中 session_key 是对用户数据进行加密签名的密钥。
-         * 为了自身应用安全，session_key 不应该在网络上传输。
-         * 接口地址："https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code"
-         */
         $APPID = 'wx3dd12da36570cd80';
         $AppSecret = '7799fedb17fd1463543704571be52cb4';
         $wx_request_url = 'https://api.weixin.qq.com/sns/jscode2session';
@@ -52,22 +42,10 @@ class Index extends Base
         }
         $sessionKey = $reqData['session_key'];
 
-        /**
-         * 5.server计算signature, 并与小程序传入的signature比较, 校验signature的合法性, 不匹配则返回signature不匹配的错误. 不匹配的场景可判断为恶意请求, 可以不返回.
-         * 通过调用接口（如 wx.getUserInfo）获取敏感数据时，接口会同时返回 rawData、signature，其中 signature = sha1( rawData + session_key )
-         *
-         * 将 signature、rawData、以及用户登录态发送给开发者服务器，开发者在数据库中找到该用户对应的 session-key
-         * ，使用相同的算法计算出签名 signature2 ，比对 signature 与 signature2 即可校验数据的可信度。
-         */
         $signature2 = sha1($rawData . $sessionKey);
 
         if ($signature2 !== $signature) return ret_message("signNotMatch");
 
-        /*
-         * 6.使用第4步返回的session_key解密encryptData, 将解得的信息与rawData中信息进行比较, 需要完全匹配,
-         * 解得的信息中也包括openid, 也需要与第4步返回的openid匹配. 解密失败或不匹配应该返回客户相应错误.
-         * （使用官方提供的方法即可）
-         */
         $pc = new WXBizDataCrypt($APPID, $sessionKey);
         $errCode = $pc->decryptData($encryptedData, $iv, $data);
 
@@ -105,12 +83,11 @@ class Index extends Base
 //        cache($session3rd, $data['openId'] . $sessionKey);
 
         return json($data);
-//        return ['result'=>11,'message'=>'ok'];
     }
 
-    public function upload(){
-        // 获取表单上传文件 例如上传了001.jpg
+    public function recog_driv_front(){
         $file = request()->file('add_image');
+        $type = $_POST['type'];
 
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' );
@@ -121,7 +98,7 @@ class Index extends Base
                 $auth = '0ROlCNpA8Re1f40vILPY/ZxPJClhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURvUnB4cVRzeXVmRVpoY3RvNTl6YzFFRTFiMklMdm9GVCZlPTE1MzE0OTQ5MzEmdD0xNTI0MjM3MzMxJnI9Mjg1OTUmdT0wJmY9';
 
                 $dataurl = 'https://sscar.ptczn.cn/uploads/'.$infoadd;
-                $opt = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>1, 'url'=>$dataurl];
+                $opt = ["appid"=>'1254398576',"bucket"=>"sscar","type"=>$type, 'url'=>$dataurl];
                 $opt_data = json_encode($opt);
 
                 $header = array(
@@ -160,20 +137,82 @@ class Index extends Base
         }
     }
 
-    public function inidcard()
+    public function recog_car_front(){
+        $file = request()->file('add_image');
+        $which_one = $_POST['which_one'];
+        $openId = $_POST['openId'];
+
+        if($file){
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' );
+            $infoadd = $info->getSaveName();
+            $insert['openId'] = $openId;
+            $insert['photo'] = $infoadd;
+            $insert['upload_time']=time();
+            $insert['which_one']= $which_one;
+            $is_insert = Db::table('upload')->insert($insert);
+
+            if($is_insert){
+                $apiurl = 'https://recognition.image.myqcloud.com/ocr/plate';
+                $auth = '0ROlCNpA8Re1f40vILPY/ZxPJClhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURvUnB4cVRzeXVmRVpoY3RvNTl6YzFFRTFiMklMdm9GVCZlPTE1MzE0OTQ5MzEmdD0xNTI0MjM3MzMxJnI9Mjg1OTUmdT0wJmY9';
+
+                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$infoadd;
+                $opt = ["appid"=>'1254398576','url'=>$dataurl];
+                $opt_data = json_encode($opt);
+
+                $header = array(
+                    'Host:recognition.image.myqcloud.com',
+                    'Content-Length:'.strlen($opt_data),
+                    'Content-Type:application/json',
+                    'Authorization:'.$auth
+                );
+
+                $curl = curl_init();  //初始化
+                curl_setopt($curl,CURLOPT_URL,$apiurl);  //设置url
+//                curl_setopt($curl,CURLOPT_HTTPAUTH,CURLAUTH_BASIC);  //设置http验证方法
+                curl_setopt($curl,CURLOPT_HEADER,0);  //设置头信息
+                curl_setopt($curl,CURLOPT_HTTPHEADER,$header);  //设置头信息
+                curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);  //设置curl_exec获取的信息的返回方式
+                curl_setopt($curl,CURLOPT_POST,1);  //设置发送方式为post请求
+                curl_setopt($curl,CURLOPT_POSTFIELDS,$opt_data);  //设置post的数据
+
+                $result = curl_exec($curl);
+                if($result === false){
+                    echo curl_errno($curl);
+                }
+//                print_r($result);
+                curl_close($curl);
+
+//                unlink('./uploads/'.$infoadd);
+//                $p = date("Ymd");
+//                rmdir('./uploads/'.$p);
+
+                return json($result);
+
+            }else{
+                // 上传失败获取错误信息
+                return json($file->getError());
+            }
+        }
+    }
+
+
+    public function upload()
     {
         $file = request()->file('add_image');
         $openId = $_POST['openId'];
-        $store = $file->move(ROOT_PATH . 'idcard' . DS . $openId);
+        $which_one = $_POST['which_one'];
+        $store = $file->move(ROOT_PATH . 'photo' . DS . $openId);
         $infoadd = $store->getSaveName();
         $insert['openId'] = $openId;
-        $insert['photo_car_front'] = $infoadd;
-        Db::table('photo')->insert($insert);
+        $insert['photo'] = $infoadd;
+        $insert['upload_time']=time();
+        $insert['which_one']= $which_one;
+        Db::table('upload')->insert($insert);
         if ($file) {
             if ($store) {
                 return json($store);
             } else {
-                return 'not delete';
+                return 'can not upload';
             }
 
         } else {
