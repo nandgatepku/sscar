@@ -88,6 +88,7 @@ class Index extends Base
     public function recog_driv_front(){
         $file = request()->file('add_image');
         $type = $_POST['type'];
+        $type = (int)$type;
 
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' );
