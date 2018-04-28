@@ -211,7 +211,7 @@ class Index extends Base
         Db::table('upload')->insert($insert);
         if ($file) {
             if ($store) {
-                return json($infoadd);
+                return $infoadd;
             } else {
                 return 'can not upload';
             }
