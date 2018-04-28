@@ -128,12 +128,7 @@ class Index extends Base
                 $p = date("Ymd");
                 rmdir('./uploads/'.$p);
 
-                $res_imgadd = array (
-                    "res"  => $result,
-                    "imgadd" => infoadd,
-                );
-
-                return json($res_imgadd);
+                return json($result);
 
               }else{
                 // 上传失败获取错误信息
@@ -186,13 +181,17 @@ class Index extends Base
                 }
 //                print_r($result);
                 curl_close($curl);
-                $result['imgadd'] = $infoadd;
+//                $result['imgadd'] = $infoadd;
 
+                $res_imgadd = array (
+                    "res"  => $result,
+                    "imgadd" => $infoadd,
+                );
 //                unlink('./uploads/'.$infoadd);
 //                $p = date("Ymd");
 //                rmdir('./uploads/'.$p);
 
-                return json($result);
+                return json($res_imgadd);
 
             }else{
                 // 上传失败获取错误信息
