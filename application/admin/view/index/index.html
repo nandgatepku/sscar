@@ -1,10 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+
 </head>
 <body>
-<p>by PTcZn </p>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="./index.html">软微大兴车证管理</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav left fast-add" lay-filter="">
+          </li>
+        </ul>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;">{$user}</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a href="#">个人信息</a></dd>
+              <!--<dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
+              <dd><a href="{:url('Index/logout')}">退出</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item to-index"><a href="https://sscar.ptczn.cn/">前台首页</a></li>
+        </ul>
+        
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div id="side-nav">
+        <ul id="nav">
+            <li>
+                <a _href="{:url('Index/check_wait')}">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>待审核车证</cite>
+                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
+                </a>
+            </li>
+            <li>
+                <a _href="{:url('Index/check_valid')}">
+                    <i class="iconfont">&#xe726;</i>
+                    <cite>有效车证</cite>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ce;</i>
+                    <cite>系统设置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="echarts1.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>拆线图</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="echarts1.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>拆线图</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的首页</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+    <!--<div class="footer">-->
+        <!--<div class="copyright">Copyright ©2017 x-admin v2.3 All Rights Reserved</div>  -->
+    <!--</div>-->
+    <!-- 底部结束 -->
+
 </body>
 </html>
