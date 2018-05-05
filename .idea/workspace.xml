@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71be8b80-2406-4682-b013-243d1dc3c5c2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/application/index/controller/HttpService.class.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/application/index/controller/Wechat.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/application/index/view/Wechat/show.html" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/application/config.php" afterPath="$PROJECT_DIR$/application/config.php" />
-      <change beforePath="$PROJECT_DIR$/application/index/controller/Index.php" afterPath="$PROJECT_DIR$/application/index/controller/Index.php" />
+      <change beforePath="$PROJECT_DIR$/application/index/controller/Wechat.php" afterPath="$PROJECT_DIR$/application/index/controller/Wechat.php" />
+      <change beforePath="$PROJECT_DIR$/application/index/view/Wechat/show.html" afterPath="$PROJECT_DIR$/application/index/view/Wechat/show_qrcode.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -79,21 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wechat.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Wechat.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/index/controller/Wechat.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/index/view/Wechat/show.html">
+      <file leaf-file-name="show_qrcode.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/index/view/Wechat/show_qrcode.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
-              <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+              <caret line="7" column="9" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -195,8 +191,8 @@
         <option value="$PROJECT_DIR$/application/admin/controller/wechat.php" />
         <option value="$PROJECT_DIR$/application/index/controller/wechat.php" />
         <option value="$PROJECT_DIR$/application/index/controller/Index.php" />
-        <option value="$PROJECT_DIR$/application/index/controller/Wechat.php" />
         <option value="$PROJECT_DIR$/application/index/view/Wechat/show.html" />
+        <option value="$PROJECT_DIR$/application/index/controller/Wechat.php" />
       </list>
     </option>
   </component>
@@ -345,12 +341,12 @@
       <workItem from="1525265094965" duration="9202000" />
       <workItem from="1525347444571" duration="7972000" />
       <workItem from="1525360009861" duration="486000" />
-      <workItem from="1525439432386" duration="26275000" />
+      <workItem from="1525439432386" duration="26697000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149518000" />
+    <option name="totallyTimeSpent" value="149940000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -767,18 +763,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/index/controller/Wechat.php">
+    <entry file="file://$PROJECT_DIR$/application/index/view/Wechat/show_qrcode.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <caret line="7" column="9" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/index/view/Wechat/show.html">
+    <entry file="file://$PROJECT_DIR$/application/index/controller/Wechat.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+        <state relative-caret-position="324">
+          <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
           <folding />
         </state>
       </provider>

@@ -19,7 +19,7 @@ class Wechat extends Base
         $qrcode = $this->get_qrcode($studentid);
 
         $this->assign('qrcode', $qrcode);
-        return $this->fetch('show');
+        return $this->fetch('show_qrcode');
 
     }
 
