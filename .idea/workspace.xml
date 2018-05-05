@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71be8b80-2406-4682-b013-243d1dc3c5c2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/application/index/view/index/index.html" afterPath="$PROJECT_DIR$/application/index/view/index/index.html" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/application/index/controller/Index.php" afterPath="$PROJECT_DIR$/application/index/controller/Index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -74,21 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="541">
-              <caret line="301" column="0" lean-forward="true" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
+            <state relative-caret-position="562">
+              <caret line="319" column="0" lean-forward="true" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/index/view/index/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="9" column="266" lean-forward="false" selection-start-line="9" selection-start-column="266" selection-end-line="9" selection-end-column="266" />
+            <state relative-caret-position="216">
+              <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -153,8 +154,8 @@
         <option value="$PROJECT_DIR$/application/config.php" />
         <option value="$PROJECT_DIR$/application/admin/view/index/index.html" />
         <option value="$PROJECT_DIR$/application/admin/controller/Index.php" />
-        <option value="$PROJECT_DIR$/application/index/controller/Index.php" />
         <option value="$PROJECT_DIR$/application/index/view/index/index.html" />
+        <option value="$PROJECT_DIR$/application/index/controller/Index.php" />
       </list>
     </option>
   </component>
@@ -302,12 +303,12 @@
       <workItem from="1525265094965" duration="9202000" />
       <workItem from="1525347444571" duration="7972000" />
       <workItem from="1525360009861" duration="486000" />
-      <workItem from="1525439432386" duration="3179000" />
+      <workItem from="1525439432386" duration="6942000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126422000" />
+    <option name="totallyTimeSpent" value="130185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -717,18 +718,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
+    <entry file="file://$PROJECT_DIR$/application/index/view/index/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="301" column="0" lean-forward="true" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/index/view/index/index.html">
+    <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="266" lean-forward="false" selection-start-line="9" selection-start-column="266" selection-end-line="9" selection-end-column="266" />
+        <state relative-caret-position="562">
+          <caret line="319" column="0" lean-forward="true" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
           <folding />
         </state>
       </provider>
