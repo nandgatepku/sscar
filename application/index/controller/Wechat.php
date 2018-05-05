@@ -14,10 +14,12 @@ use app\index\common\Base;
 class Wechat extends Base
 {
     public function show_qrcode(){
+        $studentid=1701210403;
 //        session_start();
 //        $studentid = $_SESSION['studentid'];
-        $qrcode = $this->get_qrcode();
+        $qrcode = $this->get_qrcode($studentid);
 
+        $this->assign('studentid', $studentid);
         $this->assign('qrcode', $qrcode);
         return $this->fetch('show_qrcode');
     }
@@ -99,7 +101,7 @@ class Wechat extends Base
         //发生错误，抛出异常
         if($error) throw new \Exception('请求发生错误：' . $error);
 
-        $ok = file_put_contents('data.jpg', $data);
+        $ok = file_put_contents('static/qrcode/'.$studentid.'data.jpg', $data);
         if($ok){
             return 'ok';
         }else{
