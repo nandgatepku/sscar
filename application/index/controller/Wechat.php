@@ -14,12 +14,12 @@ use app\index\common\Base;
 class Wechat extends Base
 {
     public function show_qrcode(){
-        $studentid=1701210403;
-//        session_start();
-//        if(empty($_SESSION['studentid'])) {
-//            return $this->redirect('Index/index');
-//        }
-//        $studentid = $_SESSION['studentid'];
+//        $studentid=1701210403;
+        session_start();
+        if(empty($_SESSION['studentid'])) {
+            return $this->redirect('Index/index');
+        }
+        $studentid = $_SESSION['studentid'];
         $qrcode = $this->get_qrcode($studentid);
 
         $this->assign('studentid', $studentid);
