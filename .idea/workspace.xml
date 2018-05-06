@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71be8b80-2406-4682-b013-243d1dc3c5c2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/application/admin/view/index/add.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/application/admin/view/index/checkbutton.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/application/admin/view/index/photo.html" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/application/admin/controller/Index.php" afterPath="$PROJECT_DIR$/application/admin/controller/Index.php" />
-      <change beforePath="$PROJECT_DIR$/application/admin/controller/Login.php" afterPath="$PROJECT_DIR$/application/admin/controller/Login.php" />
-      <change beforePath="$PROJECT_DIR$/application/admin/view/index/check_valid.html" afterPath="$PROJECT_DIR$/application/admin/view/index/check_valid.html" />
-      <change beforePath="$PROJECT_DIR$/application/admin/view/index/check_wait.html" afterPath="$PROJECT_DIR$/application/admin/view/index/check_wait.html" />
-      <change beforePath="$PROJECT_DIR$/application/admin/view/index/index.html" afterPath="$PROJECT_DIR$/application/admin/view/index/index.html" />
-      <change beforePath="$PROJECT_DIR$/application/admin/view/index/welcome.html" afterPath="$PROJECT_DIR$/application/admin/view/index/welcome.html" />
-      <change beforePath="$PROJECT_DIR$/application/admin/view/login/login.html" afterPath="$PROJECT_DIR$/application/admin/view/login/login.html" />
-      <change beforePath="$PROJECT_DIR$/application/admin/view/public/head.html" afterPath="$PROJECT_DIR$/application/admin/view/public/head.html" />
       <change beforePath="$PROJECT_DIR$/application/index/controller/Index.php" afterPath="$PROJECT_DIR$/application/index/controller/Index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -87,8 +76,8 @@
       <file leaf-file-name="Index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="295" column="14" lean-forward="true" selection-start-line="295" selection-start-column="14" selection-end-line="295" selection-end-column="14" />
+            <state relative-caret-position="541">
+              <caret line="297" column="31" lean-forward="true" selection-start-line="297" selection-start-column="31" selection-end-line="297" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -346,12 +335,12 @@
       <workItem from="1525347444571" duration="7972000" />
       <workItem from="1525360009861" duration="486000" />
       <workItem from="1525439432386" duration="64404000" />
-      <workItem from="1525618988311" duration="5725000" />
+      <workItem from="1525618988311" duration="5878000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193372000" />
+    <option name="totallyTimeSpent" value="193525000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -780,8 +769,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="295" column="14" lean-forward="true" selection-start-line="295" selection-start-column="14" selection-end-line="295" selection-end-column="14" />
+        <state relative-caret-position="541">
+          <caret line="297" column="31" lean-forward="true" selection-start-line="297" selection-start-column="31" selection-end-line="297" selection-end-column="31" />
           <folding />
         </state>
       </provider>

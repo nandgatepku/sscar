@@ -293,10 +293,11 @@ class Index extends Base
                 "name"  => $res['0']['name'],
                 "major_name" => $res['0']['major_name'],
                 "telephone"  => $res['0']['telephone'],
+                "student_id"=>$studentid
             );
             return json($data);
         }else{
-            $data=["status"=>"fail"];
+            $data=["status"=>"fail","student_id"=>$studentid];
             return json($data);
         }
 
