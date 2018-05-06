@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+</head>
+<div class="x-body layui-anim layui-anim-up">
+    <p style="text-align: center">申请人：{$data['0']['driver_name']}</p>
+    <hr />
+    <div style="margin-left: 40%">
+        <button  class="layui-btn" type="submit" id="check" >
+            审核通过
+        </button>
+    </div>
+
+    <hr />
+
+    <div class="layui-form-item">
+        <label for="L_because" class="layui-form-label">
+            驳回理由
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="L_because" name="because" required="" lay-verify="because"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left: 45%">
+        <button  class="layui-btn" type="submit" id="toback"  >
+            驳回
+        </button>
+    </div>
+
+    <hr />
+    <div style="margin-left: 38%">
+        <button  class="layui-btn" type="submit" id="dele" lay-filter="dele" lay-submit="" >
+            删除此条申请
+        </button>
+    </div>
+</div>
+<div id='apply_id' style="display: none;">{$apply_id}</div>
+<script>
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+
+        });
+
+        $('#check').click(function(){
+            var apply_id = $("#apply_id").text();
+            var jsonstr='{"apply_id":"'+ apply_id +'"}';
+            var jsonobj=eval ("(" + jsonstr + ")");
+            console.log(jsonobj);
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "pass_api" ,//url
+                data: jsonobj,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 'ok') {
+                        layer.alert("审核通过", {icon: 6},function () {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        });
+                    }else{
+                        layer.alert("error", {icon: 5},function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                    }
+                    parent.location.reload();;
+                },
+                error : function() {
+                    layer.alert("error", {icon: 3},function () {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    parent.location.reload();
+                }
+            });
+        });
+
+        $('#toback').click(function(){
+            var apply_id = $("#apply_id").text();
+            var because = $("#L_because").val();
+            if (because.length == 0)
+            {
+                layer.alert('请填写驳回理由');
+            }else{
+                var jsonstr='{"apply_id":"'+ apply_id +'","because":"'+ because +'"}';
+                var jsonobj=eval ("(" + jsonstr + ")");
+                console.log(jsonobj);
+                $.ajax({
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "toback_api" ,//url
+                    data: jsonobj,
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+                        if (result.status == 'ok') {
+                            // layer.alert("已驳回申请", {icon: 6},function () {
+                            //     var index = parent.layer.getFrameIndex(window.name);
+                            //     parent.layer.close(index);
+                            // });
+                            layer.msg('已驳回申请', {
+                                time: 2000})
+                        }else{
+                            layer.alert("error", {icon: 5},function () {
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                            });
+                        }
+                        parent.location.reload();
+                    },
+                    error : function() {
+                        layer.alert("error", {icon: 3},function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                        parent.location.reload();
+                    }
+                });
+            }
+
+        });
+
+        $('#dele').click(function(){
+            var apply_id = $("#apply_id").text();
+            var jsonstr='{"apply_id":"'+ apply_id +'"}';
+            var jsonobj=eval ("(" + jsonstr + ")");
+            console.log(jsonobj);
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "dele_api" ,//url
+                data: jsonobj,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 'ok') {
+                        // layer.alert("已删除此条申请", {icon: 6},function () {
+                        //     var index = parent.layer.getFrameIndex(window.name);
+                        //     parent.layer.close(index);
+                        // });
+                        layer.msg('已删除此条申请', {
+                            time: 2000})
+                    }else{
+                        layer.alert("error", {icon: 5},function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                    }
+                    setTimeout(function () { parent.location.reload();}, 2000);
+                },
+                error : function() {
+                    layer.alert("error", {icon: 3},function () {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    setTimeout(function () { parent.location.reload();}, 2000);
+                }
+            });
+
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

@@ -31,7 +31,7 @@ class Login extends Base
                         //将用户名和密码保存在session中
                         session_start();
                         $_SESSION['kname'] = $kname;
-                        $_SESSION['kpwd'] = $kpwd;
+//                        $_SESSION['kpwd'] = $kpwd;
                         //跳转到用户中心
                         $this->redirect('Index/index', '', 0, '登录成功！前往管理后台!...页面跳转中...');
 //                        echo "loading...";

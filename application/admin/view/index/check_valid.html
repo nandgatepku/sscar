@@ -12,41 +12,39 @@
         </div>
         <a class="layui-btn search_btn">查询</a>
     </div>
-    <div class="layui-inline">
-        <a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
-    </div>
     <!--<div class="layui-inline">-->
     <!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
-    <!--</div>-->
-    <div class="layui-inline">
-        <a class="layui-btn audit_btn">审核文章</a>
-    </div>
-    <!--<div class="layui-inline">-->
-    <!--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>-->
     <!--</div>-->
 </blockquote>
 <div class="layui-form news_list">
     <table class="layui-table">
         <colgroup>
             <col width="50">
-            <col>
-            <col width="9%">
-            <col width="9%">
-            <col width="9%">
-            <col width="9%">
+            <col width="7%">
+            <col width="10%">
+            <col width="10%">
             <col width="17%">
+            <col width="7%">
+            <col width="13%">
+            <col width="20%">
+            <col width="7%">
+            <col width="7%">
             <col width="7%">
         </colgroup>
         <thead>
         <tr>
-            <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
-            <th style="text-align:left;">文章标题</th>
-            <th>作者</th>
-            <th>文章类型</th>
-            <th>是否头条</th>
-            <th>是否公开</th>
-            <th>创建时间</th>
-            <th>编辑</th>
+            <!--<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>-->
+            <th></th>
+            <th style="text-align:left;">部门/系</th>
+            <th>机动车<br/>所有人</th>
+            <th>驾驶员</th>
+            <th>学号/工号</th>
+            <th>手机号</th>
+            <th>车号</th>
+            <th>申请时间</th>
+            <th>查看详情<br/>及照片</th>
+            <th>打印申请表</th>
+            <th>审核</th>
         </tr>
         </thead>
         <tbody class="news_content">
@@ -55,6 +53,7 @@
         <tbody class="news_content">
 
         {foreach name='list' id='id' key='k'}
+        <?php $apply_id = $list["$k"]["id"];?>
         <tr>
             <td>
                 <input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
@@ -62,41 +61,35 @@
                     <i class="layui-icon"></i>
                 </div>
             </td>
-            <td align="left"><a href='__URL__/../../../index.php/news/article.html?id={$list["$k"]["id"]}' target="_blank">{$list["$k"]['driver_name']}</a></td>
-            <td>{$list["$k"]['openId']}</td>
-            <td>{$list["$k"]['pku_id']}</td>
+            <td align="left">{$list["$k"]['major_name']}</td>
+            <td>{$list["$k"]['driving_name']}</td>
             <td>{$list["$k"]['driver_name']}</td>
+            <td>{$list["$k"]['studentid']}</td>
+            <td>{$list["$k"]['telephone']}</td>
+            <td>{$list["$k"]['car_number']}</td>
+            <td><?php echo date('Y-m-d H:i:s',$list["$k"]['update_time'])?></td>
             <td>
-                <!--<input type="checkbox" name="show" checked="checked" lay-skin="switch" lay-filter="isShow" lay-text="是|否">-->
-                <!--<div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>否</em>-->
-                <!--<i></i></div>-->
-                {$list["$k"]['driving_name']}
+                <a class="layui-btn layui-btn-mini" href='newsedit.html?id={$list["$k"]["id"]}'><i class="iconfont icon-edit"></i>详情</a>
             </td>
-            <td>{$list["$k"]['update_time']}</td>
             <td>
-                <a class="layui-btn layui-btn-mini" href='newsedit.html?id={$list["$k"]["id"]}'><i class="iconfont icon-edit"></i> 编辑</a>
-                <!--<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1">-->
-                <!--<i class="layui-icon"></i> 删除</a>-->
+                <a class="layui-btn layui-btn-mini" href='topdf?id={$list["$k"]["id"]}' target="_blank"><i class="iconfont icon-edit"></i>打印</a>
+            </td>
+            <td>
+                <button class="layui-btn layui-btn-mini" onclick="x_admin_show('审核','./checkbutton.html?id={$apply_id}',400,480)">审核</button>
+                <!--<a class="layui-btn layui-btn-mini" href='newsedit.html?id={$list["$k"]["id"]}'><i class="iconfont icon-edit"></i>审核</a>-->
             </td>
         </tr>
         {/foreach}
         </tbody>
     </table>
-    <div align="center">
-        <div class="layui-laypage" align="center">
+    <div align="center" class="page">
+        <div  align="center">
             {$list->render()}
         </div>
     </div>
 </div>
-
-
 <div class="x-body layui-anim layui-anim-up">
-    <blockquote class="layui-elem-quote">欢迎管理员：
-        <span class="x-red">{$user}</span>！当前时间:2018-04-25 20:50:53</blockquote>
-
-
-    <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote>
+    <blockquote class="layui-elem-quote layui-quote-nm">北京大学软件与微电子学院</blockquote>
 </div>
-
 </body>
 </html>

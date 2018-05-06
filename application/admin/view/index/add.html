@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+</head>
+<body>
+<div class="x-body layui-anim layui-anim-up">
+    <form class="layui-form" id="form1" method="post">
+        <div class="layui-form-item">
+            <label for="L_major_name" class="layui-form-label">
+                部门/系
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_major_name" name="major_name" required="" lay-verify="major_name"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_driving_name" class="layui-form-label">
+                车辆所有人
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_driving_name" name="driving_name" required="" lay-verify="driving_name"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_driver_name" class="layui-form-label">
+                驾驶员
+            </label>
+            <div class="layui-input-inline" >
+                <input type="text" id="L_driver_name" name="driver_name" required="" lay-verify="driver_name"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_studentid" class="layui-form-label">
+                学号/工号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_studentid" name="studentid" required="" lay-verify="studentid"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_telephone" class="layui-form-label">
+                手机号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_telephone" name="telephone" required="" lay-verify="telephone"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="L_car_number" class="layui-form-label">
+                <span class="x-red">*</span>车号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_car_number" name="car_number" required="" lay-verify="car_number"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-left: 45%">
+            <button  class="layui-btn" lay-filter="add" lay-submit="" >
+                添加
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            ,layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            car_number: function(value){
+                if(value.length < 1){
+                    return '请填写车号';
+                }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(add)', function(data){
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "add_api" ,//url
+                data: $('#form1').serialize(),
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 'ok') {
+                        layer.msg('添加成功', {
+                                time: 2000})
+                    }else{
+                        layer.alert("添加失败", {icon: 5},function () {
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        });
+                    };
+                    setTimeout(function () { parent.location.reload();}, 2000);
+
+                },
+                error : function() {
+                    layer.alert("添加失败", {icon: 3},function () {
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                    setTimeout(function () { parent.location.reload();}, 2000);
+                }
+            });
+            console.log(data);
+            //发异步，把数据提交给php
+
+            return false;
+        });
+
+
+    });
+</script>
+
+</body>
+
+</html>

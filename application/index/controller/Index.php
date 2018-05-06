@@ -40,7 +40,6 @@ class Index extends Base
         }else{
             return $this->fetch('index');
         }
-
     }
 
     public function wxLogin() {
@@ -281,6 +280,26 @@ class Index extends Base
             $res['res'] = 'fail';
             return json($res);
         }
+    }
+
+    public function get_data_api(){
+        $studentid = $_POST['studentid'];
+        $where['student_id'] = $studentid;
+        $res = Db::table('info')->where($where)->field('name,major_name,telephone')->select();
+
+        if($res){
+            $data = array (
+                "status"=>"ok",
+                "name"  => $res['0']['name'],
+                "major_name" => $res['0']['major_name'],
+                "telephone"  => $res['0']['telephone'],
+            );
+            return json($data);
+        }else{
+            $data=["status"=>"fail"];
+            return json($data);
+        }
+
     }
 
     public function apply_txt(){

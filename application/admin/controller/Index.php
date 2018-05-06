@@ -5,10 +5,16 @@ use app\admin\common\Base;
 use think\Db;
 use think\Loader;
 
-//require ROOT_PATH . 'extend/TCPDF/tcpdf.php';
-
 class Index extends Base
 {
+    public function islog()
+    {
+        session_start();
+        if(empty($_SESSION['kname'])) {
+            return $this->redirect('Login/login');
+        }
+    }
+
     public function index()
     {
         $this->islog();
@@ -17,11 +23,148 @@ class Index extends Base
         return $this->fetch('index');
     }
 
-    public function islog()
+    public function add()
     {
-        session_start();
-        if(empty($_SESSION['kname'])) {
-            return $this->redirect('Login/login');
+        $this->islog();
+        $user = $_SESSION['kname'];
+        $this->assign('user',$user);
+        return $this->fetch('add');
+    }
+
+    public function photo()
+    {
+        $this->islog();
+        $apply_id = $_GET['id'];
+        $where['id'] = $apply_id;
+        $data = Db::table('photo')->where($where)->field('major_name,driving_name,driver_name,update_time,studentid,telephone,car_number')->select();
+        $user = $_SESSION['kname'];
+        $this->assign('data',$data);
+        $this->assign('apply_id',$apply_id);
+        $this->assign('user',$user);
+        return $this->fetch('photo');
+    }
+
+    public function checkbutton()
+    {
+        $this->islog();
+        $user = $_SESSION['kname'];
+        $this->assign('user',$user);
+        $apply_id = $_GET['id'];
+
+        $where['id'] = $apply_id;
+
+        $data = Db::table('photo')->where($where)->field('driver_name,studentid')->select();
+        $this->assign('data',$data);
+        $this->assign('apply_id',$apply_id);
+        return $this->fetch('checkbutton');
+    }
+
+    function pass_api()
+    {
+        $apply_id = $_POST['apply_id'];
+        $where['id'] = $apply_id;
+        $update['status']=1;
+
+        $res = Db::table('photo')->where($where)->update($update);
+        if($res){
+            $status=["status"=>"ok"];
+            return json($status);
+        }else{
+            $status=["status"=>"fail"];
+            return json($status);
+        }
+    }
+
+    function dele_api()
+    {
+        $apply_id = $_POST['apply_id'];
+        $where['id'] = $apply_id;
+        $update['status']=4;
+
+        $res = Db::table('photo')->where($where)->update($update);
+        if($res){
+            $status=["status"=>"ok"];
+            return json($status);
+        }else{
+            $status=["status"=>"fail"];
+            return json($status);
+        }
+    }
+
+    function toback_api()
+    {
+        $apply_id = $_POST['apply_id'];
+        $because = $_POST['because'];
+        $where['id'] = $apply_id;
+        $update['status']=2;
+        $update['status_2_because']=$because;
+
+        $res = Db::table('photo')->where($where)->update($update);
+        if($res){
+            $status=["status"=>"ok"];
+            return json($status);
+        }else{
+            $status=["status"=>"fail"];
+            return json($status);
+        }
+    }
+
+    function update_api()
+    {
+        $apply_id = $_POST['apply_id'];
+
+        $where['id']=$apply_id;
+        $major_name = $_POST['major_name'];
+        $driving_name = $_POST['driving_name'];
+        $driver_name = $_POST['driver_name'];
+        $studentid = $_POST['studentid'];
+        $telephone = $_POST['telephone'];
+        $car_number = $_POST['car_number'];
+
+        $update['major_name'] = $major_name;
+        $update['driving_name'] = $driving_name;
+        $update['driver_name'] = $driver_name;
+        $update['studentid'] = $studentid;
+        $update['telephone'] = $telephone;
+        $update['car_number'] = $car_number;
+//        $update['status'] = 0;
+//        $update['update_time'] = time();
+
+        $res = Db::table('photo')->where($where)->update($update);
+        if($res){
+            $status=["status"=>"ok"];
+            return json($status);
+        }else{
+            $status=["status"=>"fail"];
+            return json($status);
+        }
+    }
+
+    function add_api()
+    {
+        $major_name = $_POST['major_name'];
+        $driving_name = $_POST['driving_name'];
+        $driver_name = $_POST['driver_name'];
+        $studentid = $_POST['studentid'];
+        $telephone = $_POST['telephone'];
+        $car_number = $_POST['car_number'];
+
+        $insert['major_name'] = $major_name;
+        $insert['driving_name'] = $driving_name;
+        $insert['driver_name'] = $driver_name;
+        $insert['studentid'] = $studentid;
+        $insert['telephone'] = $telephone;
+        $insert['car_number'] = $car_number;
+        $insert['status'] = 0;
+        $insert['update_time'] = time();
+
+        $res = Db::table('photo')->insert($insert);
+        if($res){
+            $status=["status"=>"ok"];
+            return json($status);
+        }else{
+            $status=["status"=>"fail"];
+            return json($status);
         }
     }
 
@@ -46,9 +189,9 @@ class Index extends Base
         $user = $_SESSION['kname'];
         $this->assign('user',$user);
 
-        $where['status'] = 0;
+//        $where['status'] = 0 or 2 or 3;
 //      $list=Db::query("select id,title,abstract,cre_time,author from news order by id DESC") -> paginate(5);
-        $list = Db::table('photo')->where($where)->field('id,openId,pku_id,car_number,driver_name,driving_name,update_time')->order('id','desc')->paginate(6);
+        $list = Db::table('photo')->whereIn('status', [0, 2, 3])->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid,status')->order('id','desc')->paginate(6);
 
 //      $page=new Fpage($list->currentPage(),$list->lastPage());
         $page = $list->render();
@@ -65,7 +208,7 @@ class Index extends Base
 
         $where['status'] = 1;
 //      $list=Db::query("select id,title,abstract,cre_time,author from news order by id DESC") -> paginate(5);
-        $list = Db::table('photo')->where($where)->field('id,openId,pku_id,car_number,driver_name,driving_name,update_time')->order('id','desc')->paginate(6);
+        $list = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid')->order('id','desc')->paginate(6);
 
 //      $page=new Fpage($list->currentPage(),$list->lastPage());
         $page = $list->render();
@@ -90,9 +233,15 @@ class Index extends Base
         return $this->fetch('check_other');
     }
 
-    function topdf($id=1){
+    function topdf($apply_id=102){
+        $this->islog();
+        if(!empty($_GET['id'])){
+            $apply_id = $_GET['id'];
+        }
+        $where['id'] = $apply_id;
+        $data = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone')->select();
+        $studentid = $data["0"]["telephone"];
         Loader::import('TCPDF.tcpdf');
-        $tr =1;
         $html='<p><b style="text-align:center;">北京大学软件与微电子学院机动车入校通行证申请</b></p><p></p>
 <p><b>信息登记表：</b></p>';
         $html = $html . '
@@ -105,11 +254,11 @@ class Index extends Base
         <td style="line-height:3;">车号</td>
     </tr>
     <tr>
-        <td>' . $tr . '</td>
-        <td>' . $tr . '</td>
-        <td>' . $tr . '</td>
-        <td>' . $tr . '</td>
-        <td>' . $tr . '</td>
+        <td>' . $data["0"]["major_name"] . '</td>
+        <td>' . $data["0"]["driving_name"] . '</td>
+        <td>' . $data["0"]["driver_name"] . '</td>
+        <td>' . $data["0"]["telephone"] . '</td>
+        <td>' . $data["0"]["car_number"] . '</td>
     </tr>
 </table>
 <p></p>
@@ -135,7 +284,7 @@ class Index extends Base
         // 设置打印模式
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Nicola Asuni');
-        $pdf->SetTitle('TCPDF Example 001');
+        $pdf->SetTitle('导出'.$studentid.'申请表');
         $pdf->SetSubject('TCPDF Tutorial');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
         // 是否显示页眉
@@ -175,6 +324,6 @@ class Index extends Base
         // 设置字体
         $pdf->SetFont('stsongstdlight', '', 14, '', true);
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf->Output('apply_no'.$id.'.pdf', 'I');
+        $pdf->Output('apply_'.$apply_id.'_id_'.$studentid.'.pdf', 'I');
     }
 }
