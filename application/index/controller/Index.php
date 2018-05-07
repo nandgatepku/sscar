@@ -309,7 +309,7 @@ class Index extends Base
     public function get_apply_id_api(){
         $openId = $_POST['openId'];
         $where['openId'] = $openId;
-        $res = Db::table('photo')->where($where)->field('id,status,driver_name,major_name,car_number,telephone')->find();
+        $res = Db::table('photo')->where($where)->field('id,status,driver_name,major_name,car_number,telephone')->select();
 
         if($res){
             $data = array (
@@ -334,6 +334,7 @@ class Index extends Base
         $major_name = $_POST['major_name'];
         $studentid = $_POST['studentid'];
         $openId = $_POST['openId'];
+        $apply_id = $_POST['apply_id'];
 
         $update['driver_name'] = $driver_name;
         $update['car_number'] = $car_number;
@@ -342,7 +343,7 @@ class Index extends Base
         $update['major_name'] = $major_name;
         $update['studentid'] = $studentid;
 
-        $where['openId'] =$openId;
+        $where['id'] = $apply_id;
 
         $sql_find = Db::table('photo')->where($where)->find();
         if($sql_find){
