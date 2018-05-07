@@ -309,7 +309,7 @@ class Index extends Base
     public function get_apply_id_api(){
         $openId = $_POST['openId'];
         $where['openId'] = $openId;
-        $res = Db::table('info')->where($where)->field('id,status,name,major_name,telephone')->select();
+        $res = Db::table('photo')->where($where)->field('id,status,name,major_name,telephone')->find();
 
         if($res){
             $data = array (
