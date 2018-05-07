@@ -350,7 +350,9 @@ class Index extends Base
             $sql_photo = Db::table('photo')->where($where)->update($update);
         }
         if($sql_photo){
-            $res['res'] = 'ok';
+            $res['status'] = 'ok';
+            $res['res']= $sql_photo;
+            $res['apply_id'] = $apply_id;
             return json($res);
         }
 
