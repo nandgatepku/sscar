@@ -304,7 +304,26 @@ class Index extends Base
             $data=["status"=>"fail","student_id"=>$studentid];
             return json($data);
         }
+    }
 
+    public function get_apply_id_api(){
+        $openId = $_POST['openId'];
+        $where['openId'] = $openId;
+        $res = Db::table('info')->where($where)->field('id,status,name,major_name,telephone')->select();
+
+        if($res){
+            $data = array (
+                "status"=>"ok",
+                "res"=>$res,
+//                "apply_id"  => $res['0']['id'],
+//                "apply_status" => $res['0']['status'],
+                "openId"=>$openId
+            );
+            return json($data);
+        }else{
+            $data=["status"=>"fail","openId"=>$openId];
+            return json($data);
+        }
     }
 
     public function apply_txt(){
