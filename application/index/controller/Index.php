@@ -266,15 +266,19 @@ class Index extends Base
         $insert['update_time'] = time();
 
         $where['openId'] =$openId;
-        $sql_find = Db::table('photo')->where($where)->find();
-        if($sql_find){
+//        $sql_find = Db::table('photo')->where($where)->find();
+        if(0){
             $sql_photo = Db::table('photo')->where($where)->update($insert);
         }else{
             $insert['openId'] = $openId;
             $sql_photo = Db::table('photo')->insert($insert);
         }
+        $apply_id = Db::table('photo')->where($insert)->field('id')->select();
+
         if($sql_photo){
             $res['res'] = 'ok';
+            $res['sql']=$sql_photo;
+            $res['apply_id']=$apply_id['0']['id'];
             return json($res);
         }else{
             $res['res'] = 'fail';
@@ -306,10 +310,18 @@ class Index extends Base
     public function apply_txt(){
         $driver_name = $_POST['driver_name'];
         $car_number = $_POST['car_number'];
+        $driving_name = $_POST['driving_name'];
+        $telephone = $_POST['telephone'];
+        $major_name = $_POST['major_name'];
+        $studentid = $_POST['studentid'];
         $openId = $_POST['openId'];
 
         $update['driver_name'] = $driver_name;
         $update['car_number'] = $car_number;
+        $update['driving_name'] = $driving_name;
+        $update['telephone'] = $telephone;
+        $update['major_name'] = $major_name;
+        $update['studentid'] = $studentid;
 
         $where['openId'] =$openId;
 
