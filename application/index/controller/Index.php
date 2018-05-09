@@ -166,7 +166,7 @@ class Index extends Base
         $openId = $_POST['openId'];
 
         if($file){
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' );
+            $info = $file->move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS .$openId );
             $infoadd = $info->getSaveName();
             $insert['openId'] = $openId;
             $insert['photo'] = $infoadd;
@@ -178,7 +178,7 @@ class Index extends Base
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/plate';
                 $auth = '0ROlCNpA8Re1f40vILPY/ZxPJClhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURvUnB4cVRzeXVmRVpoY3RvNTl6YzFFRTFiMklMdm9GVCZlPTE1MzE0OTQ5MzEmdD0xNTI0MjM3MzMxJnI9Mjg1OTUmdT0wJmY9';
 
-                $dataurl = 'https://sscar.ptczn.cn/uploads/'.$infoadd;
+                $dataurl = 'https://sscar.ptczn.cn/keyphoto/'.$openId.$infoadd;
                 $opt = ["appid"=>'1254398576','url'=>$dataurl];
                 $opt_data = json_encode($opt);
 
@@ -210,9 +210,6 @@ class Index extends Base
                     "res"  => $result,
                     "imgadd" => $infoadd,
                 );
-                unlink('./uploads/'.$infoadd);
-                $p = date("Ymd");
-                rmdir('./uploads/'.$p);
 
                 return json($res_imgadd);
 
@@ -229,7 +226,7 @@ class Index extends Base
         $file = request()->file('add_image');
         $openId = $_POST['openId'];
         $which_one = $_POST['which_one'];
-        $store = $file->move(ROOT_PATH . 'photo' . DS . $openId);
+        $store = $file->move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $openId);
         $infoadd = $store->getSaveName();
         $insert['openId'] = $openId;
         $insert['photo'] = $infoadd;
@@ -324,6 +321,32 @@ class Index extends Base
             $data=["status"=>"fail","openId"=>$openId];
             return json($data);
         }
+    }
+
+    public function is_wx_to_pkuid(){
+        $openId = $_POST['openId'];
+        $studentid =$_POST['studentid'];
+        $where['studentid'] = $studentid;
+        $where['openId'] = $openId;
+        $find1 = Db::table('info')->where($where)->select();
+        if($find1){
+
+        }
+        $find = Db::table('info')->where($where)->field('openId')->select();
+
+    }
+
+    public function bound_wx_to_pkuid(){
+        $openId = $_POST['openId'];
+        $studentid =$_POST['studentid'];
+        $where['studentid'] = $studentid;
+        $where['openId'] = $openId;
+        $find1 = Db::table('info')->where($where)->select();
+        if($find1){
+
+        }
+        $find = Db::table('info')->where($where)->field('openId')->select();
+
     }
 
     public function apply_txt(){
