@@ -164,12 +164,14 @@ class Index extends Base
         $file = request()->file('add_image');
         $which_one = $_POST['which_one'];
         $openId = $_POST['openId'];
+        $studentid = $_POST['studentid'];
 
         if($file){
             $info = $file->move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS .$openId );
             $infoadd = $info->getSaveName();
             $insert['openId'] = $openId;
             $insert['photo'] = $infoadd;
+            $insert['pku_id'] = $studentid;
             $insert['upload_time']=time();
             $insert['which_one']= $which_one;
             $is_insert = Db::table('upload')->insert($insert);
