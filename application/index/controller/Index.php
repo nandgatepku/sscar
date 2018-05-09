@@ -226,10 +226,12 @@ class Index extends Base
         $file = request()->file('add_image');
         $openId = $_POST['openId'];
         $which_one = $_POST['which_one'];
+        $studentid = $_POST['studentid'];
         $store = $file->move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $openId);
         $infoadd = $store->getSaveName();
         $insert['openId'] = $openId;
         $insert['photo'] = $infoadd;
+        $insert['pku_id'] = $studentid;
         $insert['upload_time']=time();
         $insert['which_one']= $which_one;
         Db::table('upload')->insert($insert);
@@ -331,7 +333,7 @@ class Index extends Base
         $driving_name = $_POST['driving_name'];
         $telephone = $_POST['telephone'];
         $major_name = $_POST['major_name'];
-        $studentid = $_POST['studentid'];
+//        $studentid = $_POST['studentid'];
         $openId = $_POST['openId'];
         $apply_id = $_POST['apply_id'];
 
@@ -340,7 +342,7 @@ class Index extends Base
         $update['driving_name'] = $driving_name;
         $update['telephone'] = $telephone;
         $update['major_name'] = $major_name;
-        $update['studentid'] = $studentid;
+//        $update['studentid'] = $studentid;
 
         $where['id'] = $apply_id;
 
