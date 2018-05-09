@@ -306,7 +306,7 @@ class Index extends Base
     public function get_apply_id_api(){
         $openId = $_POST['openId'];
         $where['openId'] = $openId;
-        $res = Db::table('photo')->where($where)->field('id,status,driver_name,major_name,car_number,telephone')->select();
+        $res = Db::table('photo')->where($where)->whereIn('status', [0, 1, 2, 3])->field('id,status,status_2_because,driver_name,major_name,car_number,telephone')->select();
 
         if($res){
             $data = array (
@@ -321,32 +321,6 @@ class Index extends Base
             $data=["status"=>"fail","openId"=>$openId];
             return json($data);
         }
-    }
-
-    public function is_wx_to_pkuid(){
-        $openId = $_POST['openId'];
-        $studentid =$_POST['studentid'];
-        $where['studentid'] = $studentid;
-        $where['openId'] = $openId;
-        $find1 = Db::table('info')->where($where)->select();
-        if($find1){
-
-        }
-        $find = Db::table('info')->where($where)->field('openId')->select();
-
-    }
-
-    public function bound_wx_to_pkuid(){
-        $openId = $_POST['openId'];
-        $studentid =$_POST['studentid'];
-        $where['studentid'] = $studentid;
-        $where['openId'] = $openId;
-        $find1 = Db::table('info')->where($where)->select();
-        if($find1){
-
-        }
-        $find = Db::table('info')->where($where)->field('openId')->select();
-
     }
 
     public function apply_txt(){
