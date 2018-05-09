@@ -252,6 +252,7 @@ class Index extends Base
         $studentcard = $_POST['studentcard'];
         $car_front = $_POST['car_front'];
         $openId = $_POST['openId'];
+        $studentid = $_POST['studentid'];
 
         $insert['photo_driver_front'] = $driver_front;
         $insert['photo_driver_back'] = $driver_back;
@@ -259,6 +260,7 @@ class Index extends Base
         $insert['photo_driving_back'] = $driving_back;
         $insert['photo_studentcard'] = $studentcard;
         $insert['photo_car_front'] = $car_front;
+        $insert['studentid'] = $studentid;
         $insert['status'] = 0;
         $insert['update_time'] = time();
 
