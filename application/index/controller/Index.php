@@ -178,7 +178,7 @@ class Index extends Base
                 $apiurl = 'https://recognition.image.myqcloud.com/ocr/plate';
                 $auth = '0ROlCNpA8Re1f40vILPY/ZxPJClhPTEyNTQzOTg1NzYmYj1zc2NhciZrPUFLSURvUnB4cVRzeXVmRVpoY3RvNTl6YzFFRTFiMklMdm9GVCZlPTE1MzE0OTQ5MzEmdD0xNTI0MjM3MzMxJnI9Mjg1OTUmdT0wJmY9';
 
-                $dataurl = 'https://sscar.ptczn.cn/keyphoto/'.$openId.$infoadd;
+                $dataurl = 'https://sscar.ptczn.cn/keyphoto/'.$openId.'/'.$infoadd;
                 $opt = ["appid"=>'1254398576','url'=>$dataurl];
                 $opt_data = json_encode($opt);
 
