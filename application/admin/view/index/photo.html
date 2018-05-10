@@ -16,14 +16,14 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="L_major_name" name="major_name" required="" lay-verify="major_name"
-                       autocomplete="off" class="layui-input" value="{$data['0']['major_name']}">
+                       autocomplete="off" class="layui-input" value="{$data['major_name']}">
             </div>
             <label for="L_driving_name" class="layui-form-label">
                 车辆所有人
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="L_driving_name" name="driving_name" required="" lay-verify="driving_name"
-                       autocomplete="off" class="layui-input" value="{$data['0']['driving_name']}">
+                       autocomplete="off" class="layui-input" value="{$data['driving_name']}">
             </div>
         </div>
         <div class="layui-form-item" style="margin-left: 15%">
@@ -32,14 +32,14 @@
             </label>
             <div class="layui-input-inline" >
                 <input type="text" id="L_driver_name" name="driver_name" required="" lay-verify="driver_name"
-                       autocomplete="off" class="layui-input" value="{$data['0']['driver_name']}">
+                       autocomplete="off" class="layui-input" value="{$data['driver_name']}">
             </div>
             <label for="L_studentid" class="layui-form-label">
                 学号/工号
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="L_studentid" name="studentid" required="" lay-verify="studentid"
-                       autocomplete="off" class="layui-input" value="{$data['0']['studentid']}">
+                       autocomplete="off" class="layui-input" value="{$data['studentid']}">
             </div>
         </div>
         <div class="layui-form-item" style="margin-left: 15%">
@@ -48,14 +48,14 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="L_telephone" name="telephone" required="" lay-verify="telephone"
-                       autocomplete="off" class="layui-input" value="{$data['0']['telephone']}">
+                       autocomplete="off" class="layui-input" value="{$data['telephone']}">
             </div>
             <label for="L_car_number" class="layui-form-label">
                 车号
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="L_car_number" name="car_number" required="" lay-verify="car_number"
-                       autocomplete="off" class="layui-input" value="{$data['0']['car_number']}">
+                       autocomplete="off" class="layui-input" value="{$data['car_number']}">
             </div>
             <div style="display: none;">
                 <input type="text" name="apply_id" value="{$apply_id}">
@@ -68,9 +68,10 @@
         </div>
     </form>
     <hr/>
-
-    <div>
-        <img src="__ROOT__/keyphoto/map.jpg">
+    <div>学生证</div>
+    <hr/>
+    <div style="margin:20px 0;">
+        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photostudentcard']}" width="500px" height="auto">
     </div>
 </div>
 <script>

@@ -36,9 +36,9 @@ class Index extends Base
         $this->islog();
         $apply_id = $_GET['id'];
         $where['id'] = $apply_id;
-        $data = Db::table('photo')->where($where)->field('major_name,driving_name,driver_name,update_time,studentid,telephone,car_number')->select();
+        $data = Db::table('photo')->where($where)->select();
         $user = $_SESSION['kname'];
-        $this->assign('data',$data);
+        $this->assign('data',$data['0']);
         $this->assign('apply_id',$apply_id);
         $this->assign('user',$user);
         return $this->fetch('photo');
