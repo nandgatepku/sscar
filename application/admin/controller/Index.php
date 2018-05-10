@@ -350,7 +350,7 @@ class Index extends Base
         $pdf->SetAutoPageBreak(TRUE, '15');
         // 设置图像比例因子
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $pdf->SetMargins(17, 15, 17);//左、右、上
+        $pdf->SetMargins(18, 15, 18);//左、右、上
         $pdf->SetAutoPageBreak(TRUE, 15);//下
         if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
             require_once(dirname(__FILE__).'/lang/eng.php');
