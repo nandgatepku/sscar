@@ -9,8 +9,9 @@
 <div class="x-body layui-anim layui-anim-up">
     <div>申请号：{$apply_id}&emsp;&emsp;申请时间：<?php echo date('Y-m-d H:i:s',$data['update_time'])?></div>
     <hr/>
-    <form class="layui-form" id="form3" method="post">
+    <form class="layui-form" id="form3" method="post" action="edit_w">
         <div class="layui-form-item" style="margin-left: 15%">
+            <input name="appliy_id" value="{$apply_id}" type="hidden">
             <label for="L_major_name" class="layui-form-label">
                 部门/系
             </label>
@@ -62,9 +63,10 @@
             </div>
         </div>
         <div class="layui-form-item" style="margin-left: 45%">
-            <button  class="layui-btn" lay-filter="update" lay-submit="" >
+            <button  class="layui-btn" name="edit_w">
                 更新修改
             </button>
+            <!--lay-filter="update"-->
         </div>
     </form>
     <hr/>
@@ -77,19 +79,15 @@
     <div>驾驶证</div>
     <hr/>
     <div>
-        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driver_front']}" width="300px" height="auto">
-    </div>
-    <div>
-        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driver_back']}" width="300px" height="auto">
+        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driver_front']}" width="400px" height="auto">
+        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driver_back']}" width="400px" height="auto">
     </div>
     <hr/>
     <div>行驶证</div>
     <hr/>
     <div>
-        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driving_front']}" width="300px" height="auto">
-    </div>
-    <div>
-        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driving_back']}" width="300px" height="auto">
+        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driving_front']}" width="400px" height="auto">
+        <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driving_back']}" width="400px" height="auto">
     </div>
     <hr/>
     <div>车辆照片</div>

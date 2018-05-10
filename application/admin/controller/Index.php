@@ -44,6 +44,35 @@ class Index extends Base
         return $this->fetch('photo');
     }
 
+    public function edit_w(){
+        $this->islog();
+
+        $apply_id = $_POST['apply_id'];
+        $major_name = $_POST['major_name'];
+        $driving_name = $_POST['driving_name'];
+        $driver_name = $_POST['driver_name'];
+        $studentid = $_POST['studentid'];
+        $telephone = $_POST['telephone'];
+        $car_number = $_POST['car_number'];
+
+        $where['id'] = $apply_id;
+        $update['major_name'] = $major_name;
+        $update['driving_name'] = $driving_name;
+        $update['driver_name'] = $driver_name;
+        $update['studentid'] = $studentid;
+        $update['telephone'] = $telephone;
+        $update['car_number'] = $car_number;
+
+        $res = Db::table('photo')->where($where)->update($update);
+        if($res){
+            $status=["status"=>"ok"];
+            return '更新成功，请关闭本弹窗后刷新列表';
+        }else{
+            $status=["status"=>"fail"];
+            return json($status);
+        }
+    }
+
     public function checkbutton()
     {
         $this->islog();
@@ -180,6 +209,11 @@ class Index extends Base
         $this->islog();
         $user = $_SESSION['kname'];
         $this->assign('user',$user);
+        $num_wait = Db::table('photo')->whereIn('status', [0, 2, 3])->count();
+        $num_valid = Db::table('photo')->where('status', 1)->count();
+
+        $this ->assign('num_wait',$num_wait);
+        $this ->assign('num_valid',$num_valid);
         return $this->fetch('welcome');
     }
 
@@ -192,11 +226,12 @@ class Index extends Base
 //        $where['status'] = 0 or 2 or 3;
 //      $list=Db::query("select id,title,abstract,cre_time,author from news order by id DESC") -> paginate(5);
         $list = Db::table('photo')->whereIn('status', [0, 2, 3])->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid,status')->order('id','desc')->paginate(6);
-
+        $num_wait = Db::table('photo')->whereIn('status', [0, 2, 3])->count();
 //      $page=new Fpage($list->currentPage(),$list->lastPage());
         $page = $list->render();
         $this->assign('page', $page);
         $this ->assign('list',$list);
+        $this ->assign('num_wait',$num_wait);
         return $this->fetch('check_wait');
     }
 
@@ -210,10 +245,12 @@ class Index extends Base
 //      $list=Db::query("select id,title,abstract,cre_time,author from news order by id DESC") -> paginate(5);
         $list = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid')->order('id','desc')->paginate(6);
 
+        $num = Db::table('photo')->where($where)->count();
 //      $page=new Fpage($list->currentPage(),$list->lastPage());
         $page = $list->render();
         $this->assign('page', $page);
         $this ->assign('list',$list);
+        $this ->assign('num',$num);
         return $this->fetch('check_valid');
     }
 

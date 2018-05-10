@@ -7,16 +7,14 @@
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
-        <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-        </div>
-        <a class="layui-btn search_btn">查询</a>
+        <!--<div class="layui-input-inline">-->
+            <!--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">-->
+        <!--</div>-->
+        <!--<a class="layui-btn search_btn">查询</a>-->
+        <div>共有{$num}张有效车证</div>
     </div>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-    <!--<div class="layui-inline">-->
-    <!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
-    <!--</div>-->
 </blockquote>
 <div class="layui-form news_list">
     <table class="layui-table">
@@ -31,7 +29,7 @@
             <col width="20%">
             <col width="7%">
             <col width="7%">
-            <col width="7%">
+            <!--<col width="7%">-->
         </colgroup>
         <thead>
         <tr>
@@ -46,7 +44,7 @@
             <th>申请时间</th>
             <th>查看详情<br/>及照片</th>
             <th>打印申请表</th>
-            <th>审核</th>
+            <!--<th>审核</th>-->
         </tr>
         </thead>
         <tbody class="news_content">
@@ -71,15 +69,14 @@
             <td>{$list["$k"]['car_number']}</td>
             <td><?php echo date('Y-m-d H:i:s',$list["$k"]['update_time'])?></td>
             <td>
-                <a class="layui-btn layui-btn-mini" href='newsedit.html?id={$list["$k"]["id"]}'><i class="iconfont icon-edit"></i>详情</a>
+                <a class="layui-btn layui-btn-mini" onclick="x_admin_show('申请单详情页面','./photo?id={$apply_id}')"><i class="iconfont icon-edit"></i>详情</a>
             </td>
             <td>
                 <a class="layui-btn layui-btn-mini" href='topdf?id={$list["$k"]["id"]}' target="_blank"><i class="iconfont icon-edit"></i>打印</a>
             </td>
-            <td>
-                <button class="layui-btn layui-btn-mini" onclick="x_admin_show('审核','./checkbutton.html?id={$apply_id}',400,480)">审核</button>
-                <!--<a class="layui-btn layui-btn-mini" href='newsedit.html?id={$list["$k"]["id"]}'><i class="iconfont icon-edit"></i>审核</a>-->
-            </td>
+            <!--<td>-->
+                <!--<button class="layui-btn layui-btn-mini" onclick="x_admin_show('审核','./checkbutton.html?id={$apply_id}',400,480)">审核</button>-->
+            <!--</td>-->
         </tr>
         {/foreach}
         </tbody>
