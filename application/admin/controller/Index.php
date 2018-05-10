@@ -363,4 +363,66 @@ class Index extends Base
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->Output('apply_'.$apply_id.'_id_'.$studentid.'.pdf', 'I');
     }
+
+    public function toxls(){
+        $this->islog();
+        $path = dirname(__FILE__); //找到当前脚本所在路径
+        Loader::import('PHPExcel.PHPExcel');
+        Loader::import('PHPExcel.PHPExcel.PHPExcel_IOFactory');
+        Loader::import('PHPExcel.PHPExcel.PHPExcel_Cell');
+        $path = dirname(__FILE__); //找到当前脚本所在路径
+        Loader::import("PHPExcel.PHPExcel.PHPExcel");
+        Loader::import("PHPExcel.PHPExcel.Writer.IWriter");
+        Loader::import("PHPExcel.PHPExcel.Writer.Abstract");
+        Loader::import("PHPExcel.PHPExcel.Writer.Excel5");
+        Loader::import("PHPExcel.PHPExcel.Writer.Excel2007");
+        Loader::import("PHPExcel.PHPExcel.IOFactory");
+
+        $objPHPExcel = new \PHPExcel();
+        $objWriter = new \PHPExcel_Writer_Excel5($objPHPExcel);
+        $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+
+        // 实例化完了之后就先把数据库里面的数据查出来
+        $where['status'] = 1;
+        $sql = Db::table('photo')->where($where)->select();
+
+        // 设置表头信息
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', '申请号')
+            ->setCellValue('B1', '部门/系')
+            ->setCellValue('C1', '机动车所有人')
+            ->setCellValue('D1', '驾驶员')
+            ->setCellValue('E1', '学号/工号')
+            ->setCellValue('F1', '手机号')
+            ->setCellValue('G1', '车号')
+            ->setCellValue('H1', '申请时间');
+
+
+        $i=2;  //定义一个i变量，目的是在循环输出数据是控制行数
+        $count = count($sql);  //计算有多少条数据
+        for ($i = 2; $i <= $count+1; $i++) {
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $sql[$i-2]['id']);
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $sql[$i-2]['major_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $sql[$i-2]['driving_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $sql[$i-2]['driver_name']);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $sql[$i-2]['studentid']);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $sql[$i-2]['telephone']);
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $sql[$i-2]['car_number']);
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, date('Y-m-d H:i:s',$sql[$i-2]['update_time']));
+        }
+
+
+
+        $objPHPExcel->getActiveSheet()->setTitle('有效车证');      //设置sheet的名称
+        $objPHPExcel->setActiveSheetIndex(0);                   //设置sheet的起始位置
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');   //通过PHPExcel_IOFactory的写函数将上面数据写出来
+
+        $PHPWriter = \PHPExcel_IOFactory::createWriter( $objPHPExcel,"Excel2007");
+
+        header('Content-Disposition: attachment;filename="有效车证.xlsx"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
+
+    }
 }
