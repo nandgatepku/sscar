@@ -276,8 +276,8 @@ class Index extends Base
             $apply_id = $_GET['id'];
         }
         $where['id'] = $apply_id;
-        $data = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone')->select();
-        $studentid = $data["0"]["telephone"];
+        $data = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid')->select();
+        $studentid = $data["0"]["studentid"];
         Loader::import('TCPDF.tcpdf');
         $html='<p><b style="text-align:center;">北京大学软件与微电子学院机动车入校通行证申请</b></p><p></p>
 <p><b>信息登记表：</b></p>';
