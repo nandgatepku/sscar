@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+</head>
+<body class="childrenBody">
+<div class="layui-form-item">
+    <label class="layui-form-label" style="width: 80px;color: red;">
+        <b>设置项目</b>
+    </label></div>
+<div class="layui-form-item">
+    <label for="L_because" class="layui-form-label" style="width: 160px;">
+        每人最多申请多少张车证
+    </label>
+    <div class="layui-input-inline">
+        <input type="text" id="L_because" name="because" value="1" required="" lay-verify="because"
+               autocomplete="off" class="layui-input">
+    </div>
+</div>
+<div style="margin-left: 10%">
+    <button  class="layui-btn" type="submit" id="dele" lay-filter="dele" lay-submit="" >
+        确定修改
+    </button>
+</div>
+<div class="x-body layui-anim layui-anim-up">
+    <blockquote class="layui-elem-quote layui-quote-nm">北京大学软件与微电子学院</blockquote>
+</div>
+
+<script>
+    function ReloadPage(){
+        location.reload();
+    }
+</script>
+</body>
+</html>

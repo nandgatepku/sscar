@@ -254,6 +254,11 @@ class Index extends Base
         return $this->fetch('check_valid');
     }
 
+    public function edit(){
+        $this->islog();
+        return $this->fetch('edit');
+    }
+
     public function check_other()
     {
         $this->islog();
