@@ -43,58 +43,58 @@ class Index extends Base
     }
 
     public function wxLogin() {
-        $code = input("code", '', 'htmlspecialchars_decode');
-        $rawData = input("rawData", '', 'htmlspecialchars_decode');
-        $signature = input("signature", '', 'htmlspecialchars_decode');
-        $encryptedData = input("encryptedData", '', 'htmlspecialchars_decode');
-        $iv = input("iv", '', 'htmlspecialchars_decode');
+    $code = input("code", '', 'htmlspecialchars_decode');
+    $rawData = input("rawData", '', 'htmlspecialchars_decode');
+    $signature = input("signature", '', 'htmlspecialchars_decode');
+    $encryptedData = input("encryptedData", '', 'htmlspecialchars_decode');
+    $iv = input("iv", '', 'htmlspecialchars_decode');
 
-        $APPID = 'wx3dd12da36570cd80';
-        $AppSecret = '7799fedb17fd1463543704571be52cb4';
-        $wx_request_url = 'https://api.weixin.qq.com/sns/jscode2session';
-        $params = [
-            'appid' => $APPID,
-            'secret' => $AppSecret,
-            'js_code' => $code,
-            'grant_type' => 'authorization_code'
-        ];
-        $res = makeRequest($wx_request_url, $params);
+    $APPID = 'wx3dd12da36570cd80';
+    $AppSecret = '7799fedb17fd1463543704571be52cb4';
+    $wx_request_url = 'https://api.weixin.qq.com/sns/jscode2session';
+    $params = [
+        'appid' => $APPID,
+        'secret' => $AppSecret,
+        'js_code' => $code,
+        'grant_type' => 'authorization_code'
+    ];
+    $res = makeRequest($wx_request_url, $params);
 
-        if ($res['code'] !== 200 || !isset($res['result']) || !isset($res['result'])) {
-            return json(ret_message('requestTokenFailed'));
+    if ($res['code'] !== 200 || !isset($res['result']) || !isset($res['result'])) {
+        return json(ret_message('requestTokenFailed'));
 //            return $res['result'];
-        }
-        $reqData = json_decode($res['result'], true);
-        if (!isset($reqData['session_key'])) {
-            return json(ret_message('requestTokenFailed'));
+    }
+    $reqData = json_decode($res['result'], true);
+    if (!isset($reqData['session_key'])) {
+        return json(ret_message('requestTokenFailed'));
 //            return $res['result'];
-        }
-        $sessionKey = $reqData['session_key'];
+    }
+    $sessionKey = $reqData['session_key'];
 
-        $signature2 = sha1($rawData . $sessionKey);
+    $signature2 = sha1($rawData . $sessionKey);
 
-        if ($signature2 !== $signature) return ret_message("signNotMatch");
+    if ($signature2 !== $signature) return ret_message("signNotMatch");
 
-        $pc = new WXBizDataCrypt($APPID, $sessionKey);
-        $errCode = $pc->decryptData($encryptedData, $iv, $data);
+    $pc = new WXBizDataCrypt($APPID, $sessionKey);
+    $errCode = $pc->decryptData($encryptedData, $iv, $data);
 
-        if ($errCode !== 0) {
-            return json(ret_message("encryptDataNotMatch"));
+    if ($errCode !== 0) {
+        return json(ret_message("encryptDataNotMatch"));
 //            print_r($errCode);
-        }
+    }
 
-        $wr = json_decode($data);
-        $insert['openId'] = $wr -> openId;
-        $insert['nickName'] = $wr -> nickName;
-        $insert['gender'] = $wr -> gender;
-        $insert['language'] = $wr -> language;
-        $insert['city'] = $wr -> city;
-        $insert['province'] = $wr -> province;
-        $insert['country'] = $wr -> country;
-        $insert['avatarUrl'] = $wr -> avatarUrl;
-        $insert['login_time'] = time();
+    $wr = json_decode($data);
+    $insert['openId'] = $wr -> openId;
+    $insert['nickName'] = $wr -> nickName;
+    $insert['gender'] = $wr -> gender;
+    $insert['language'] = $wr -> language;
+    $insert['city'] = $wr -> city;
+    $insert['province'] = $wr -> province;
+    $insert['country'] = $wr -> country;
+    $insert['avatarUrl'] = $wr -> avatarUrl;
+    $insert['login_time'] = time();
 
-        Db::table('login')->insert($insert);
+    Db::table('login')->insert($insert);
 
 //	return json(ret_message("here"));
 
@@ -104,8 +104,8 @@ class Index extends Base
 //        $data['session3rd'] = $session3rd;
 //        cache($session3rd, $data['openId'] . $sessionKey);
 
-        return json($data);
-    }
+    return json($data);
+}
 
     public function recog_driv_front(){
         $file = request()->file('add_image');

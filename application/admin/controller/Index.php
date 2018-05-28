@@ -220,28 +220,45 @@ class Index extends Base
     public function check_wait()
     {
         $this->islog();
+        $search_view = isset($_POST['search_car']) ? $_POST['search_car'] : '';
         $user = $_SESSION['kname'];
         $this->assign('user',$user);
 
+        if(isset($_POST['search_car'])){
+            $search_car = $_POST['search_car'];
+            $where['car_number'] = array('like','%'.$search_car.'%');
+            $list = Db::table('photo')->whereIn('status', [0, 2, 3])->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid,status')->order('id','desc')->paginate(6);
+            $num_wait = Db::table('photo')->whereIn('status', [0, 2, 3])->where($where)->count();
+        }else{
+            $list = Db::table('photo')->whereIn('status', [0, 2, 3])->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid,status')->order('id','desc')->paginate(6);
+            $num_wait = Db::table('photo')->whereIn('status', [0, 2, 3])->count();
+    }
 //        $where['status'] = 0 or 2 or 3;
 //      $list=Db::query("select id,title,abstract,cre_time,author from news order by id DESC") -> paginate(5);
-        $list = Db::table('photo')->whereIn('status', [0, 2, 3])->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid,status')->order('id','desc')->paginate(6);
-        $num_wait = Db::table('photo')->whereIn('status', [0, 2, 3])->count();
+
 //      $page=new Fpage($list->currentPage(),$list->lastPage());
         $page = $list->render();
         $this->assign('page', $page);
         $this ->assign('list',$list);
         $this ->assign('num_wait',$num_wait);
+        $this ->assign('search',$search_view);
         return $this->fetch('check_wait');
     }
 
     public function check_valid()
     {
         $this->islog();
+        $search_view = isset($_POST['search_car']) ? $_POST['search_car'] : '';
         $user = $_SESSION['kname'];
         $this->assign('user',$user);
 
         $where['status'] = 1;
+
+        if(isset($_POST['search_car'])){
+            $search_car = $_POST['search_car'];
+            $where['car_number'] = array('like','%'.$search_car.'%');
+        }
+
 //      $list=Db::query("select id,title,abstract,cre_time,author from news order by id DESC") -> paginate(5);
         $list = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid')->order('id','desc')->paginate(6);
 
@@ -251,6 +268,7 @@ class Index extends Base
         $this->assign('page', $page);
         $this ->assign('list',$list);
         $this ->assign('num',$num);
+        $this ->assign('search',$search_view);
         return $this->fetch('check_valid');
     }
 
@@ -369,7 +387,7 @@ class Index extends Base
         $pdf->Output('apply_'.$apply_id.'_id_'.$studentid.'.pdf', 'I');
     }
 
-    public function toxls(){
+    public function toxls($year='ALL'){
         $this->islog();
         $path = dirname(__FILE__); //找到当前脚本所在路径
         Loader::import('PHPExcel.PHPExcel');
@@ -389,7 +407,14 @@ class Index extends Base
 
         // 实例化完了之后就先把数据库里面的数据查出来
         $where['status'] = 1;
-        $sql = Db::table('photo')->where($where)->select();
+        if($year=='ALL'){
+            $sql = Db::table('photo')->where($where)->select();
+        }else{
+            $start_time =  mktime(0,0,0,1,1,$year);
+            $end_time =  mktime(23,59,59,12,31,$year);
+            $where['update_time']  = array('between',array($start_time,$end_time));
+            $sql = Db::table('photo')->where($where)->select();
+        }
 
         // 设置表头信息
         $objPHPExcel->setActiveSheetIndex(0)
@@ -401,7 +426,6 @@ class Index extends Base
             ->setCellValue('F1', '手机号')
             ->setCellValue('G1', '车号')
             ->setCellValue('H1', '申请时间');
-
 
         $i=2;  //定义一个i变量，目的是在循环输出数据是控制行数
         $count = count($sql);  //计算有多少条数据
@@ -416,8 +440,6 @@ class Index extends Base
             $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, date('Y-m-d H:i:s',$sql[$i-2]['update_time']));
         }
 
-
-
         $objPHPExcel->getActiveSheet()->setTitle('有效车证');      //设置sheet的名称
         $objPHPExcel->setActiveSheetIndex(0);                   //设置sheet的起始位置
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');   //通过PHPExcel_IOFactory的写函数将上面数据写出来
@@ -428,6 +450,12 @@ class Index extends Base
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
         $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xlsx文件
+    }
 
+    public function year_xls(){
+//        $this->islog();
+        $to_year = date('Y');
+//        $to_year = 2017;
+        $this->toxls($year=$to_year);
     }
 }
