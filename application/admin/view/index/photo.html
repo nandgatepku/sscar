@@ -168,7 +168,7 @@
     function upload_studentcard(){
         var formdata = new FormData();
         // 将文件追加到 formdata对象中。
-        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("file",document.getElementById('fig_studentcard').files[0]);
         formdata.append("apply_id",'{$apply_id}');
         formdata.append("openId",'{$data["openId"]}');
         formdata.append("studentid",'{$data["studentid"]}');
@@ -196,7 +196,7 @@
     function upload_driver_front(){
         var formdata = new FormData();
         // 将文件追加到 formdata对象中。
-        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("file",document.getElementById('fig_driver_front').files[0]);
         formdata.append("apply_id",'{$apply_id}');
         formdata.append("openId",'{$data["openId"]}');
         formdata.append("studentid",'{$data["studentid"]}');
@@ -224,7 +224,7 @@
     function upload_driver_back(){
         var formdata = new FormData();
         // 将文件追加到 formdata对象中。
-        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("file",document.getElementById('fig_driver_back').files[0]);
         formdata.append("apply_id",'{$apply_id}');
         formdata.append("openId",'{$data["openId"]}');
         formdata.append("studentid",'{$data["studentid"]}');
@@ -252,7 +252,7 @@
     function upload_driving_front(){
         var formdata = new FormData();
         // 将文件追加到 formdata对象中。
-        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("file",document.getElementById('fig_driving_front').files[0]);
         formdata.append("apply_id",'{$apply_id}');
         formdata.append("openId",'{$data["openId"]}');
         formdata.append("studentid",'{$data["studentid"]}');
@@ -280,7 +280,7 @@
     function upload_driving_back(){
         var formdata = new FormData();
         // 将文件追加到 formdata对象中。
-        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("file",document.getElementById('fig_driving_back').files[0]);
         formdata.append("apply_id",'{$apply_id}');
         formdata.append("openId",'{$data["openId"]}');
         formdata.append("studentid",'{$data["studentid"]}');

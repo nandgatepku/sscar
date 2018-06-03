@@ -46,7 +46,7 @@ class Index extends Base
 
     public function upload_api(){
         // 获取上传文件
-        $file = request() -> file('fig_studentcard');
+        $file = request() -> file('file');
         $apply_id = $_POST['apply_id'];
         $openId = $_POST['openId'];
         $studentid = $_POST['studentid'];
