@@ -293,6 +293,73 @@ class Index extends Base
         return $this->fetch('check_wait');
     }
 
+    public function upload_xls(){
+        $this->islog();
+        $user = $_SESSION['kname'];
+        $this->assign('user',$user);
+        return $this->fetch('upload_xls');
+    }
+
+    public function upload_xls_api()
+    {
+        $this->islog();
+        $path = dirname(__FILE__); //找到当前脚本所在路径
+        Loader::import('PHPExcel.PHPExcel');
+        Loader::import('PHPExcel.PHPExcel.PHPExcel_IOFactory');
+        Loader::import('PHPExcel.PHPExcel.PHPExcel_Cell');
+        $path = dirname(__FILE__); //找到当前脚本所在路径
+        Loader::import("PHPExcel.PHPExcel.PHPExcel");
+        Loader::import("PHPExcel.PHPExcel.IOFactory");
+        Loader::import("PHPExcel.PHPExcel.Reader.Excel5");
+        Loader::import("PHPExcel.PHPExcel.Reader.Excel2007");
+
+//        $objPHPExcel = new \PHPExcel();
+
+        header("content-type:text/html;charset=utf-8");
+        //上传excel文件
+        $file = request()->file('excel');
+        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' .DS.'excel');
+        if ($info) {
+            //引入PHPExcel类
+//            vendor('PHPExcel.PHPExcel.Reader.Excel5');
+            //获取上传后的文件名
+            $fileName = $info->getSaveName();
+            //文件路径
+            $filePath = 'uploads/excel/' . $fileName;
+            //实例化PHPExcel类
+            $PHPReader = new \PHPExcel_Reader_Excel2007();
+//            $PHPReader = new \PHPExcel();
+            //读取excel文件
+            $objPHPExcel = $PHPReader->load($filePath);
+            //读取excel文件中的第一个工作表
+            $sheet = $objPHPExcel->getSheet(0);
+            $allRow = $sheet->getHighestRow();
+            for ($j = 2; $j <= $allRow; $j++) {
+                $data['major_name'] = $objPHPExcel->getActiveSheet()->getCell("A" . $j)->getValue();
+                $data['driving_name'] = $objPHPExcel->getActiveSheet()->getCell("B" . $j)->getValue();
+                $data['driver_name'] = $objPHPExcel->getActiveSheet()->getCell("C" . $j)->getValue();
+                $data['studentid'] = $objPHPExcel->getActiveSheet()->getCell("D" . $j)->getValue();
+                $data['telephone'] = $objPHPExcel->getActiveSheet()->getCell("E" . $j)->getValue();
+                $data['car_number'] = $objPHPExcel->getActiveSheet()->getCell("F" . $j)->getValue();
+                $data['status'] = 0;
+                $data['openId'] = 'admin';
+                $data['update_time'] = time();
+//                $data['update_time'] = $objPHPExcel->getActiveSheet()->getCell("G" . $j)->getValue();
+                $last_id = Db::table('photo')->insertGetId($data);//保存数据，并返回主键id
+                if ($last_id) {
+                    echo "第" . $j . "行导入成功，申请号为:" . $last_id . "<br/>";
+                } else {
+                    echo "第" . $j . "行导入失败！<br/>";
+                }
+            }
+            echo "导入完毕，请关闭此弹窗并刷新列表";
+        }
+        else{
+                echo "上传文件失败！";
+            }
+
+    }
+
     public function check_valid()
     {
         $this->islog();
@@ -318,6 +385,14 @@ class Index extends Base
         $this ->assign('num',$num);
         $this ->assign('search',$search_view);
         return $this->fetch('check_valid');
+    }
+
+    public function outxls_choose_time()
+    {
+        $this->islog();
+        $user = $_SESSION['kname'];
+        $this->assign('user',$user);
+        return $this->fetch('outxls_choose_time');
     }
 
     function setting(){
@@ -473,7 +548,7 @@ class Index extends Base
         $pdf->Output('apply_'.$apply_id.'_id_'.$studentid.'.pdf', 'I');
     }
 
-    public function toxls($year='ALL'){
+    public function toxls($year='ALL',$start='NULL',$end='NULL'){
         $this->islog();
         $path = dirname(__FILE__); //找到当前脚本所在路径
         Loader::import('PHPExcel.PHPExcel');
@@ -493,14 +568,16 @@ class Index extends Base
 
         // 实例化完了之后就先把数据库里面的数据查出来
         $where['status'] = 1;
-        if($year=='ALL'){
-            $sql = Db::table('photo')->where($where)->select();
-        }else{
+        if($year!='ALL'){
             $start_time =  mktime(0,0,0,1,1,$year);
             $end_time =  mktime(23,59,59,12,31,$year);
             $where['update_time']  = array('between',array($start_time,$end_time));
-            $sql = Db::table('photo')->where($where)->select();
+        }else{
+            if($start!='NULL' && $end !='NULL'){
+                $where['update_time']  = array('between',array($start,$end));
+            }
         }
+        $sql = Db::table('photo')->where($where)->select();
 
         // 设置表头信息
         $objPHPExcel->setActiveSheetIndex(0)
@@ -543,5 +620,14 @@ class Index extends Base
         $to_year = date('Y');
 //        $to_year = 2017;
         $this->toxls($year=$to_year);
+    }
+
+    public function outxls_time_api(){
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $start_1 = strtotime($start_date);
+        $end_1 = strtotime($end_date);
+        $status = $this->toxls($year='ALL',$start=$start_1,$end=$end_1);
+//        return json($status);
     }
 }

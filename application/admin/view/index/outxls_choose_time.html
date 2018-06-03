@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+</head>
+<div class="x-body layui-anim layui-anim-up">
+    <form action="{:url('index/outxls_time_api')}" method="post">
+    <p style="text-align: center">请选择日期：</p>
+    <div class="layui-inline">
+        初始日期：<input type="text" class="layui-input" id="start_date" name="start_date">
+    </div>
+    <div class="layui-inline">&nbsp;</div>
+    <div class="layui-inline">
+        <div>结束日期：</div><input type="text" class="layui-input" id="end_date" name="end_date">
+    </div>
+
+    <hr />
+    <div style="margin-left: 40%">
+        <!--<button  class="layui-btn" type="submit" id="outxls" >-->
+            <!--导出-->
+        <!--</button>-->
+        <input class="layui-btn" id="submit" type="submit" value="导出" />
+    </div>
+    </form>
+
+</div>
+
+{include file='public/footer' /}
+<script>
+    layui.use(['laydate','form','layer'], function(){
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+        var laydate_start = layui.laydate;
+
+        laydate_start.render({
+            elem: '#start_date' //指定元素
+            ,value: '2016-08-01'
+            ,isInitValue: false //是否允许填充初始值，默认为 true
+            ,format: 'yyyy-MM-dd' //可任意组合
+        });
+
+        var laydate_end = layui.laydate;
+
+        laydate_end.render({
+            elem: '#end_date' //指定元素
+            ,value: '2017-07-31'
+            ,isInitValue: false //是否允许填充初始值，默认为 true
+            ,format: 'yyyy-MM-dd' //可任意组合
+        });
+        $('#outxls').click(function(){
+            var start_date = $("#start_date").val();
+            var end_date = $("#end_date").val();
+            if (start_date.length == 0 || end_date.length == 0)
+            {
+                layer.alert('请选择时间');
+            }else {
+                // console.log(start_date);
+                var jsonstr='{"start_date":"' + start_date + '","end_date":"'+ end_date +'"}';
+                // var jsonstr='{"new_law":"' + new_law + '"}';
+                console.log(jsonstr);
+                var jsonobj=eval ("(" + jsonstr + ")");
+                console.log(jsonobj);
+                $.ajax({
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "outxls_time_api" ,//url
+                    data: jsonobj,
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+
+                        location.reload();
+                    },
+                    error : function(e) {
+                        console.log(e);
+                        layer.alert('发生错误，请联系技术人员',{icon: 3,time: 5000 },
+                            function(index) {
+                                layer.close(index);
+                                location.reload();});
+                        // location.reload();
+                    }
+                });
+
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

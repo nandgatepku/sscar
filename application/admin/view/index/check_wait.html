@@ -27,7 +27,16 @@
     <!--</div>-->
     </form>
     <div class="layui-inline">
-        <button class="layui-btn layui-btn-normal" style="margin:10px 0 0 0;" onclick="x_admin_show('添加','./add.html',400,480)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn layui-btn-normal" style="margin:10px 0 0 0;" onclick="x_admin_show('单个添加','./add.html',400,480)"><i class="layui-icon"></i>单个添加</button>
+        <button class="layui-btn layui-btn-mini" style="margin:10px 10px 0 0;" onclick="x_admin_show('上传Excel文件','./upload_xls',400,480)">上传xlsx文件</button>
+        <!--<form method="post" action="{:url('index/upload_xls')}" enctype="multipart/form-data">-->
+            <!--<b style="margin-top: 4px;">Excel表批量导入：</b><a href="../../static/xls_example.xlsx"  target="_Blank" style="text-decoration:underline">批量导入示例表</a><br/>-->
+            <!--<input type="file" name="excel" id="file_excel" value="" />-->
+            <!--<input type="submit"  value="导入" />-->
+            <!--&lt;!&ndash;<button onclick="file_excel()">导入</button>&ndash;&gt;-->
+        <!--</form>-->
+        <!--<button class="layui-btn" style="margin:10px 0 0 0;" onclick="x_admin_show('添加','./add.html',400,480)">批量xls导入</button>-->
+        <!--<a href="../../static/xls_example.xlsx"  target="_Blank" style="display:block;margin-left:90px;margin-top: 4px; height:10px;text-decoration:underline">批量导入示例表</a>-->
     </div>
 </blockquote>
 <div class="layui-form news_list">
@@ -116,10 +125,33 @@
 <div class="x-body layui-anim layui-anim-up">
     <blockquote class="layui-elem-quote layui-quote-nm">北京大学软件与微电子学院</blockquote>
 </div>
-
+{include file='public/footer' /}
 <script>
     function ReloadPage(){
         location.reload();
+    }
+    function file_excel(){
+        $("#file_excel").click();
+    }
+    //选择文件
+    function select_file_excel() {
+
+        $.ajax({
+            url: '你的上传路径',
+            type: 'POST',
+            cache: false,
+            data: new FormData($('#uploadForm')[0]),
+            dataType:'json',
+            processData: false,
+            contentType: false,
+            success:function(json){
+                //清空内容
+                $("#file_excel").val('');
+
+                //返回提示信息
+                //todo 待处理代码
+            }
+        });
     }
 </script>
 </body>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+</head>
+<div class="x-body layui-anim layui-anim-up">
+    <form method="post" action="{:url('index/upload_xls_api')}" enctype="multipart/form-data">
+    <b style="margin-top: 4px;">Excel表批量导入：</b><a href="../../static/xls_example.xlsx"  target="_Blank" style="text-decoration:underline">批量导入示例表</a><br/>
+    <input type="file" name="excel" id="file_excel" value="" />
+    <input type="submit"  value="导入" />
+    <!--<button onclick="file_excel()">导入</button>-->
+    </form>
+
+</div>
+
+{include file='public/footer' /}
+<script>
+
+</script>
+
+</body>
+
+</html>

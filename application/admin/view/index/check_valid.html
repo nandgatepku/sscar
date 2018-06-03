@@ -25,7 +25,10 @@
     </div>
     <div class="layui-inline" style="margin:10px 0 0 30px;">
         <a href="{:url('Index/year_xls')}">
-            <button class="layui-btn layui-btn-normal">导出本年度车证</button></a>
+            <button class="layui-btn layui-btn-normal">导出<?php echo date('Y');?>年车证</button></a>
+    </div>
+    <div class="layui-inline" style="margin:10px 0 0 30px;">
+        <button class="layui-btn layui-btn-mini" onclick="x_admin_show('选择导出时间','./outxls_choose_time',400,480)">导出车证（选择时间）</button>
     </div>
 </blockquote>
 <div class="layui-form news_list">
@@ -102,5 +105,6 @@
 <div class="x-body layui-anim layui-anim-up">
     <blockquote class="layui-elem-quote layui-quote-nm">北京大学软件与微电子学院</blockquote>
 </div>
+{include file='public/footer' /}
 </body>
 </html>
