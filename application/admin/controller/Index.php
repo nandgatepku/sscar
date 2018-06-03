@@ -53,7 +53,7 @@ class Index extends Base
         $which_one = $_POST['which_one'];
         $user = $_POST['user'];
         // 验证图片,并移动图片到框架目录下。
-        $store = $file -> validate(['ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $user);;
+        $store = $file -> validate(['ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $openId);;
         $infoadd = $store->getSaveName();
         $insert['openId'] = $openId;
         $insert['photo'] = $infoadd;
