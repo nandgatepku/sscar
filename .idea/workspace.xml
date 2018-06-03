@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71be8b80-2406-4682-b013-243d1dc3c5c2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/application/admin/controller/Index.php" afterPath="$PROJECT_DIR$/application/admin/controller/Index.php" />
-    </list>
+    <list default="true" id="71be8b80-2406-4682-b013-243d1dc3c5c2" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +24,7 @@
       <file leaf-file-name="photo.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/admin/view/index/photo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
+            <state relative-caret-position="292">
               <caret line="181" column="43" lean-forward="false" selection-start-line="181" selection-start-column="43" selection-end-line="181" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#div#2;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -45,21 +43,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setting.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="setting.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/admin/view/index/setting.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="68" column="24" lean-forward="false" selection-start-line="68" selection-start-column="24" selection-end-line="70" selection-end-column="49" />
+            <state relative-caret-position="512">
+              <caret line="77" column="41" lean-forward="false" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/admin/controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="57" column="36" lean-forward="false" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
+            <state relative-caret-position="319">
+              <caret line="52" column="41" lean-forward="true" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
               <folding>
                 <element signature="e#39#65#0#PHP" expanded="true" />
                 <marker date="1528008965848" expanded="true" signature="13072:13090" ph="..." />
@@ -164,11 +162,11 @@
         <option value="$PROJECT_DIR$/application/admin/view/index/check_valid.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/edit.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/index.html" />
-        <option value="$PROJECT_DIR$/application/admin/view/index/setting.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/add.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/photo.html" />
         <option value="$PROJECT_DIR$/application/config.php" />
         <option value="$PROJECT_DIR$/application/admin/controller/Index.php" />
+        <option value="$PROJECT_DIR$/application/admin/view/index/setting.html" />
       </list>
     </option>
   </component>
@@ -340,12 +338,12 @@
       <workItem from="1527341082115" duration="1798000" />
       <workItem from="1527503686909" duration="18818000" />
       <workItem from="1527775008541" duration="28579000" />
-      <workItem from="1528004852806" duration="4232000" />
+      <workItem from="1528004852806" duration="4541000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="309864000" />
+    <option name="totallyTimeSpent" value="310173000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -701,32 +699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/admin/view/index/setting.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="68" column="24" lean-forward="false" selection-start-line="68" selection-start-column="24" selection-end-line="70" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/admin/view/index/photo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="181" column="43" lean-forward="false" selection-start-line="181" selection-start-column="43" selection-end-line="181" selection-end-column="43" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1026">
@@ -737,8 +709,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/admin/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="57" column="36" lean-forward="false" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
+        <state relative-caret-position="319">
+          <caret line="52" column="41" lean-forward="true" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
           <folding>
             <element signature="e#39#65#0#PHP" expanded="true" />
             <marker date="1528008965848" expanded="true" signature="13072:13090" ph="..." />
@@ -773,6 +745,32 @@
             <marker date="1528008965848" expanded="true" signature="14488:14494" ph=" " />
             <marker date="1528008965848" expanded="true" signature="14494:14500" ph=" " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/photo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="181" column="43" lean-forward="false" selection-start-line="181" selection-start-column="43" selection-end-line="181" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/setting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="77" column="41" lean-forward="false" selection-start-line="77" selection-start-column="41" selection-end-line="77" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
