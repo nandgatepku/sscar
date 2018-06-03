@@ -70,20 +70,25 @@
         </div>
     </form>
     <hr/>
-    <div>学生证</div>
+    <b>学生证/工作证</b>
     <hr/>
+    <div>更换学生证/工作证图片：<input type="file" id="fig_studentcard" onchange="upload_studentcard();" /></div>
     <div>
         <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_studentcard']}" width="500px" height="auto">
     </div>
     <hr/>
-    <div>驾驶证</div>
+    <b>驾驶证</b>
+    <div>更换驾驶证正本图片：<input type="file" name="fig_driver_front" onchange="upload_driver_front();" /></div>
+    <div>更换驾驶证副本图片：<input type="file" name="fig_driver_back" onchange="upload_driver_back();" /></div>
     <hr/>
     <div>
         <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driver_front']}" width="400px" height="auto">
         <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driver_back']}" width="400px" height="auto">
     </div>
     <hr/>
-    <div>行驶证</div>
+    <b>行驶证</b>
+    <div>更换行驶证正本图片：<input type="file" name="fig_driving_front" onchange="upload_driving_front();" /></div>
+    <div>更换行驶证副本图片：<input type="file" name="fig_driving_back" onchange="upload_driving_back();" /></div>
     <hr/>
     <div>
         <img src="__ROOT__/keyphoto/{$data['openId']}/{$data['photo_driving_front']}" width="400px" height="auto">
@@ -158,7 +163,36 @@
             console.log(data);
              return true;
         });
+
     });
+    function upload_studentcard(){
+        var formdata = new FormData();
+        // 将文件追加到 formdata对象中。
+        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("apply_id",'{$apply_id}');
+        formdata.append("openId",'{$data["openId"]}');
+        formdata.append("studentid",'{$data["studentid"]}');
+        formdata.append("which_one",5);
+        formdata.append("user",'{$user}');
+        $.ajax({ type: "POST",
+            url: "upload_api",
+            data:formdata,
+            /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                layer.msg('成功上传学生证/工作证', {time: 2000},function(index) {
+                    layer.close(index);
+                    location.reload();});
+
+            },
+            error: function(jqXHR){
+                alert("发生错误：" + jqXHR.status); }
+        });
+    }
 </script>
 
 </body>

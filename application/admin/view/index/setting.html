@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file='public/head' /}
+    <title>车证审核管理系统</title>
+</head>
+<body class="childrenBody">
+<div class="layui-form-item">
+    <label class="layui-form-label" style="width: 80px;color: red;">
+        <b>设置项目</b>
+    </label></div>
+<div class="layui-form-item">
+    <label for="most_number" class="layui-form-label" style="width: 160px;">
+        每人最多申请多少张车证
+    </label>
+    <select name="fig_most_number" id="most_number" class="layui-form-label">
+        <option value=1 <?php if ($now_most_number == 1) { ?> selected="selected"<?php } ?>>1</option>
+        <option value=2 <?php if ($now_most_number == 2) { ?> selected="selected"<?php } ?>>2</option>
+        <option value=3 <?php if ($now_most_number == 3) { ?> selected="selected"<?php } ?>>3</option>
+        <option value=4 <?php if ($now_most_number == 4) { ?> selected="selected"<?php } ?>>4</option>
+    </select>
+</div>
+<div class="layui-form-item">
+    <label for="new_law" class="layui-form-label" style="margin-left:0;width: 160px;text-align: center">申请条款</label>
+    <textarea id="new_law" rows="9" wrap="soft" class="layui-form-label" style="width: 700px;text-align: left">{$now_law}</textarea>
+</div>
+<div class="layui-form-item">
+    <label for="new_explain" class="layui-form-label" style="margin-left:0;width: 160px;text-align: center">解释说明</label>
+    <textarea id="new_explain" rows="4" wrap="soft" class="layui-form-label" style="width: 700px;text-align: left">{$now_explain}</textarea>
+</div>
+<div style="margin-left: 40%">
+    <button  class="layui-btn" type="submit" id="tosetting">
+        确定修改
+    </button>
+</div>
+<div class="x-body layui-anim layui-anim-up">
+    <blockquote class="layui-elem-quote layui-quote-nm">北京大学软件与微电子学院</blockquote>
+</div>
+
+<script>
+    function ReloadPage() {
+        location.reload();
+    }
+    layui.use(['form','layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+
+        $('#tosetting').click(function(){
+            var most_number = $("#most_number").find("option:selected").text();
+            var new_law = $("#new_law").val();
+            var new_explain = $("#new_explain").val();
+            var jsonstr='{"most_number":"' + most_number + '","new_law":"'+ new_law +'","new_explain":"'+ new_explain +'"}';
+            // var jsonstr='{"most_number":"' + most_number + '","new_law":"'+ new_law +'"}';
+            // var jsonstr='{"new_law":"' + new_law + '"}';
+            console.log(jsonstr);
+            var jsonobj=eval ("(" + jsonstr + ")");
+            console.log(jsonobj);
+            $.ajax({
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "setting_api" ,//url
+                data: jsonobj,
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.status == 'ok') {
+                        // layer.alert("成功修改", {icon: 6},time: 0);
+                        layer.alert('成功修改',{icon: 6,time: 5000 },
+                        function(index) {
+                            layer.close(index);
+                            location.reload();});
+                    }else{
+                        layer.alert('数据没有变化',{icon: 2,time: 5000 },
+                            function(index) {
+                                layer.close(index);
+                                location.reload();});
+                    }
+                    // location.reload();
+                },
+                error : function() {
+                    layer.alert('发生错误，请联系技术人员',{icon: 3,time: 5000 },
+                        function(index) {
+                            layer.close(index);
+                            location.reload();});
+                    // location.reload();
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

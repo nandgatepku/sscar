@@ -44,6 +44,52 @@ class Index extends Base
         return $this->fetch('photo');
     }
 
+    public function upload_api(){
+        // 获取上传文件
+        $file = request() -> file('fig_studentcard');
+        $apply_id = $_POST['apply_id'];
+        $openId = $_POST['openId'];
+        $studentid = $_POST['studentid'];
+        $which_one = $_POST['which_one'];
+        $user = $_POST['user'];
+        // 验证图片,并移动图片到框架目录下。
+        $store = $file -> validate(['ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $user);;
+        $infoadd = $store->getSaveName();
+        $insert['openId'] = $openId;
+        $insert['photo'] = $infoadd;
+        $insert['pku_id'] = $studentid;
+        $insert['upload_time']=time();
+        $insert['which_one']= $which_one;
+        $insert['upload_by']= $user;
+        Db::table('upload')->insert($insert);
+        $where['id'] = $apply_id;
+        if($which_one == 5){
+            $update['photo_studentcard'] = $infoadd;
+        }
+        if($which_one == 1){
+            $update['photo_driver_front'] = $infoadd;
+        }
+        if($which_one == 2){
+            $update['photo_driver_back'] = $infoadd;
+        }
+        if($which_one == 3){
+            $update['photo_driving_front'] = $infoadd;
+        }
+        if($which_one == 4){
+            $update['photo_driving_back'] = $infoadd;
+        }
+        $sql_photo = Db::table('photo')->where($where)->update($update);
+        if ($file) {
+            if ($store) {
+                return $infoadd;
+            } else {
+                return 'can not upload';
+            }
+        } else {
+            return json($file->getError());
+        }
+    }
+
     public function edit_w(){
         $this->islog();
 
@@ -177,6 +223,7 @@ class Index extends Base
         $studentid = $_POST['studentid'];
         $telephone = $_POST['telephone'];
         $car_number = $_POST['car_number'];
+        $user = $_POST['user'];
 
         $insert['major_name'] = $major_name;
         $insert['driving_name'] = $driving_name;
@@ -184,6 +231,7 @@ class Index extends Base
         $insert['studentid'] = $studentid;
         $insert['telephone'] = $telephone;
         $insert['car_number'] = $car_number;
+        $insert['openId'] = $user;
         $insert['status'] = 0;
         $insert['update_time'] = time();
 
@@ -272,9 +320,41 @@ class Index extends Base
         return $this->fetch('check_valid');
     }
 
-    public function edit(){
+    function setting(){
         $this->islog();
-        return $this->fetch('edit');
+        $where['thing'] = 'most_number';
+        $now_most_number = Db::table('setting')->where($where)->field('number')->find();
+        $where2['thing'] = 'law';
+        $now_law = Db::table('setting')->where($where2)->field('content')->find();
+        $where3['thing'] = 'explain';
+        $now_explain = Db::table('setting')->where($where3)->field('content')->find();
+        $this->assign('now_most_number',$now_most_number['number']);
+        $this->assign('now_law',$now_law['content']);
+        $this->assign('now_explain',$now_explain['content']);
+        return $this->fetch('setting');
+    }
+
+    function setting_api(){
+        $most_number = $_POST['most_number'];
+        $new_law = $_POST['new_law'];
+        $new_explain = $_POST['new_explain'];
+
+        $where['thing'] = 'most_number';
+        $update['number'] = $most_number;
+        $where2['thing'] = 'law';
+        $update2['content'] = $new_law;
+        $where3['thing'] = 'explain';
+        $update3['content'] = $new_explain;
+
+        $sql1 = Db::table('setting')->where($where)->update($update);
+        $sql2 = Db::table('setting')->where($where2)->update($update2);
+        $sql3 = Db::table('setting')->where($where3)->update($update3);
+        if($sql1 || $sql2 || $sql3){
+            $status=["status"=>"ok"];
+        }else{
+            $status=["status"=>"fail"];
+        }
+        return json($status);
     }
 
     public function check_other()
@@ -301,6 +381,12 @@ class Index extends Base
         $where['id'] = $apply_id;
         $data = Db::table('photo')->where($where)->field('id,openId,car_number,driver_name,driving_name,update_time,major_name,telephone,studentid')->select();
         $studentid = $data["0"]["studentid"];
+
+        $where2['thing'] = 'law';
+        $content_db = Db::table('setting')->where($where2)->field('content')->select();
+        $content_db = $content_db['0']['content'];
+//        settype($content_db, "string");
+
         Loader::import('TCPDF.tcpdf');
         $html='<p><b style="text-align:center;">北京大学软件与微电子学院机动车入校通行证申请</b></p><p></p>
 <p><b>信息登记表：</b></p>';
@@ -324,20 +410,20 @@ class Index extends Base
 <p></p>
 <p></p>
 ';
-        $html = $html . '<p></p><p></p><p></p><div style="text-align:center;"><b>申请人承诺条款</b></div>
-<p>1、遵守北京大学软件与微电子学院校园交通管理规定，服从学院管理，接受并配合门卫人员和校园巡查人员的验证检查，服从指挥。</p>
-  <p>2、进入校园后，文明行车，限速15公里/小时行驶，避让一切行人和非机动车，不鸣笛，不使用远光灯，不占道停车，不占消防通道。</p>
-  <p>3、妥善保管该通行证，专车专用，不伪造车证，不为可能导致伪造的扫描、复印、拍照等行为提供便利。车证正向放置。</p>
-  <p>4、不运送与学校无工作关系的人员入校，不为校园违规行为提供便利。</p>
-  <p>5、如学校需要，及时挪走车辆。</p>
-  <div style="text-indent: 2em;">本人郑重声明，已阅知并承诺履行上述条款，如有违反，自愿接受限制入校禁令。</div>
-  <p></p>
+        $html = $html . '<p></p><p></p><p></p><div style="text-align:center;"><b>申请人承诺条款</b></div>';
+        $html =$html.$content_db;
+//        $html = $html .'        <p>1、遵守北京大学软件与微电子学院校园交通管理规定，服从学院管理，接受并配合门卫人员和校园巡查人员的验证检查，服从指挥。</p>
+//  <p>2、进入校园后，文明行车，限速15公里/小时行驶，避让一切行人和非机动车，不鸣笛，不使用远光灯，不占道停车，不占消防通道。</p>
+//  <p>3、妥善保管该通行证，专车专用，不伪造车证，不为可能导致伪造的扫描、复印、拍照等行为提供便利。车证正向放置。</p>
+//  <p>4、不运送与学校无工作关系的人员入校，不为校园违规行为提供便利。</p>
+//  <p>5、如学校需要，及时挪走车辆。</p>';
+        $html = $html .'<p></p>
   <p></p>
   <p></p>
   <p></p>
   <p></p>
   <p style="text-align:right;">驾驶员签字：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-  <p style="text-align:right;">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>';
+  <p style="text-align:right;">日期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\';';
 
         $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT,true, 'UTF-8', false);
 
