@@ -175,7 +175,7 @@
         formdata.append("which_one",5);
         formdata.append("user",'{$user}');
         $.ajax({ type: "POST",
-            url: "upload_api_t",
+            url: "upload_api",
             data:formdata,
             /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
             processData: false,
@@ -185,6 +185,118 @@
             success: function(data){
                 console.log(data);
                 layer.msg('成功上传学生证/工作证', {time: 2000},function(index) {
+                    layer.close(index);
+                    location.reload();});
+
+            },
+            error: function(jqXHR){
+                alert("发生错误：" + jqXHR.status); }
+        });
+    }
+    function upload_driver_front(){
+        var formdata = new FormData();
+        // 将文件追加到 formdata对象中。
+        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("apply_id",'{$apply_id}');
+        formdata.append("openId",'{$data["openId"]}');
+        formdata.append("studentid",'{$data["studentid"]}');
+        formdata.append("which_one",1);
+        formdata.append("user",'{$user}');
+        $.ajax({ type: "POST",
+            url: "upload_api",
+            data:formdata,
+            /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                layer.msg('成功上传驾驶证正本', {time: 2000},function(index) {
+                    layer.close(index);
+                    location.reload();});
+
+            },
+            error: function(jqXHR){
+                alert("发生错误：" + jqXHR.status); }
+        });
+    }
+    function upload_driver_back(){
+        var formdata = new FormData();
+        // 将文件追加到 formdata对象中。
+        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("apply_id",'{$apply_id}');
+        formdata.append("openId",'{$data["openId"]}');
+        formdata.append("studentid",'{$data["studentid"]}');
+        formdata.append("which_one",2);
+        formdata.append("user",'{$user}');
+        $.ajax({ type: "POST",
+            url: "upload_api",
+            data:formdata,
+            /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                layer.msg('成功上传驾驶证副本', {time: 2000},function(index) {
+                    layer.close(index);
+                    location.reload();});
+
+            },
+            error: function(jqXHR){
+                alert("发生错误：" + jqXHR.status); }
+        });
+    }
+    function upload_driving_front(){
+        var formdata = new FormData();
+        // 将文件追加到 formdata对象中。
+        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("apply_id",'{$apply_id}');
+        formdata.append("openId",'{$data["openId"]}');
+        formdata.append("studentid",'{$data["studentid"]}');
+        formdata.append("which_one",3);
+        formdata.append("user",'{$user}');
+        $.ajax({ type: "POST",
+            url: "upload_api",
+            data:formdata,
+            /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                layer.msg('成功上传行驶证正本', {time: 2000},function(index) {
+                    layer.close(index);
+                    location.reload();});
+
+            },
+            error: function(jqXHR){
+                alert("发生错误：" + jqXHR.status); }
+        });
+    }
+    function upload_driving_back(){
+        var formdata = new FormData();
+        // 将文件追加到 formdata对象中。
+        formdata.append("fig_studentcard",document.getElementById('fig_studentcard').files[0]);
+        formdata.append("apply_id",'{$apply_id}');
+        formdata.append("openId",'{$data["openId"]}');
+        formdata.append("studentid",'{$data["studentid"]}');
+        formdata.append("which_one",4);
+        formdata.append("user",'{$user}');
+        $.ajax({ type: "POST",
+            url: "upload_api",
+            data:formdata,
+            /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
+            processData: false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType: false,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                layer.msg('成功上传行驶证副本', {time: 2000},function(index) {
                     layer.close(index);
                     location.reload();});
 

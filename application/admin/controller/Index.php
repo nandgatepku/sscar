@@ -44,54 +44,6 @@ class Index extends Base
         return $this->fetch('photo');
     }
 
-    public function upload_api_t(){
-        // 获取上传文件
-        $file = request() -> file('fig_studentcard');
-        $apply_id = $_POST['apply_id'];
-        $openId = $_POST['openId'];
-        $studentid = $_POST['studentid'];
-        $which_one = $_POST['which_one'];
-        $user = $_POST['user'];
-
-        return $apply_id;
-        // 验证图片,并移动图片到框架目录下。
-        $store = $file -> validate(['ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $openId);;
-        $infoadd = $store->getSaveName();
-        $insert['openId'] = $openId;
-        $insert['photo'] = $infoadd;
-        $insert['pku_id'] = $studentid;
-        $insert['upload_time']=time();
-        $insert['which_one']= $which_one;
-        $insert['upload_by']= $user;
-        Db::table('upload')->insert($insert);
-        $where['id'] = $apply_id;
-        if($which_one == 5){
-            $update['photo_studentcard'] = $infoadd;
-        }
-        if($which_one == 1){
-            $update['photo_driver_front'] = $infoadd;
-        }
-        if($which_one == 2){
-            $update['photo_driver_back'] = $infoadd;
-        }
-        if($which_one == 3){
-            $update['photo_driving_front'] = $infoadd;
-        }
-        if($which_one == 4){
-            $update['photo_driving_back'] = $infoadd;
-        }
-        $sql_photo = Db::table('photo')->where($where)->update($update);
-        if ($file) {
-            if ($store) {
-                return $infoadd;
-            } else {
-                return 'can not upload';
-            }
-        } else {
-            return json($file->getError());
-        }
-    }
-
     public function upload_api(){
         // 获取上传文件
         $file = request() -> file('fig_studentcard');
@@ -101,7 +53,7 @@ class Index extends Base
         $which_one = $_POST['which_one'];
         $user = $_POST['user'];
         // 验证图片,并移动图片到框架目录下。
-        $store = $file -> validate(['ext' => 'jpg,png,jpeg','type' => 'image/jpeg,image/png']) -> move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $openId);;
+        $store = $file ->  move(ROOT_PATH . 'public' .DS . 'keyphoto' . DS . $openId);;
         $infoadd = $store->getSaveName();
         $insert['openId'] = $openId;
         $insert['photo'] = $infoadd;
