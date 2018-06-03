@@ -175,7 +175,7 @@
         formdata.append("which_one",5);
         formdata.append("user",'{$user}');
         $.ajax({ type: "POST",
-            url: "upload_api",
+            url: "upload_api_t",
             data:formdata,
             /** * 必须false才会避开jQuery对 formdata 的默认处理 * XMLHttpRequest会对 formdata 进行正确的处理 */
             processData: false,
