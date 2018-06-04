@@ -7,7 +7,20 @@
 </head>
 <body>
 <div class="x-body layui-anim layui-anim-up">
-    <div>申请号：{$apply_id}&emsp;&emsp;申请时间：<?php echo date('Y-m-d H:i:s',$data['update_time'])?></div>
+    <div>申请号：{$apply_id}&emsp;&emsp;申请时间：<?php echo date('Y-m-d H:i:s',$data['update_time'])?>&emsp;&emsp;状态：
+        <?php if($data['status']=='0') {?>
+        <b>待审</b>
+        <?php }?>
+        <?php if($data['status']=='1') {?>
+        <b>有效</b>
+        <?php }?>
+        <?php if($data['status']=='2') {?>
+        <b>驳回</b>&emsp;&emsp;驳回理由：{$data['status_2_because']}
+        <?php }?>
+        <?php if($data['status']=='3') {?>
+        <b>过期</b>
+        <?php }?>
+    </div>
     <hr/>
     <form class="layui-form" id="form3" method="post" action="edit_w">
         <div class="layui-form-item" style="margin-left: 15%">
