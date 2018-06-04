@@ -47,24 +47,44 @@ class Wechat extends Base
         echo $signStr."\n";
     }
 
-    public function get_token(){
-//        $get_sql = Db::table('wx_token')->
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3dd12da36570cd80&secret=7799fedb17fd1463543704571be52cb4';
-        $curl = curl_init(); // 启动一个CURL会话
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
-//        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);  // 从证书中检查SSL加密算法是否存在
-        $tmpInfo = curl_exec($curl);     //返回api的json对象
-        //关闭URL请求
-        curl_close($curl);
+    public function ttt(){
+        $get_sql = Db::table('wx_token')->order('id','desc')->limit(1)->select();
+        $get_sql = $get_sql['0'];
+        $old_time = $get_sql['time'];
+        $old_token = $get_sql['token'];
+        return $old_token;
+    }
 
-        $token_add = strpos($tmpInfo,'access_token');
-        $token_add =$token_add+15;
-        $token_add_tmp =  substr($tmpInfo,$token_add);
-        $token_tmp2 = strpos($token_add_tmp,'"');
-        $token = substr($tmpInfo,$token_add,$token_tmp2);
+    public function get_token(){
+        $get_sql = Db::table('wx_token')->order('id','desc')->limit(1)->select();
+        $get_sql = $get_sql['0'];
+        $old_time = $get_sql['time'];
+        $old_token = $get_sql['token'];
+        $now = time();
+        if(($now - $old_time)<3600){
+            $token = $old_token;
+        }else{
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3dd12da36570cd80&secret=7799fedb17fd1463543704571be52cb4';
+            $curl = curl_init(); // 启动一个CURL会话
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_HEADER, 0);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+//        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);  // 从证书中检查SSL加密算法是否存在
+            $tmpInfo = curl_exec($curl);     //返回api的json对象
+            //关闭URL请求
+            curl_close($curl);
+
+            $token_add = strpos($tmpInfo,'access_token');
+            $token_add =$token_add+15;
+            $token_add_tmp =  substr($tmpInfo,$token_add);
+            $token_tmp2 = strpos($token_add_tmp,'"');
+            $token = substr($tmpInfo,$token_add,$token_tmp2);
+
+            $insert['time'] = time();
+            $insert['token'] = $token;
+            Db::table('wx_token')->insert($insert);
+        }
 
         return $token;
     }
