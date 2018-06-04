@@ -126,7 +126,7 @@ class Wechat extends Base
         $tmpStr = sha1( $tmpStr );
 
         if( $tmpStr == $signature ){
-            return $echostr;
+            return json($echostr);
         }else{
             return false;
         }
