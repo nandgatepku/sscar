@@ -118,11 +118,11 @@ class Wechat extends Base
 
         if($status==1){
             $data_tmp = ["touser"=>$openId,"form_id"=>$formId
-                ,"data"=>["keyword1"=>["DATA"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["DATA"=>"审核通过"],"keyword3"=>["DATA"=>"请至学院6号楼领取车证，并现场缴纳10元工本费"]]
+                ,"data"=>["keyword1"=>["value"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["value"=>"审核通过"],"keyword3"=>["value"=>"请至学院6号楼领取车证，并现场缴纳10元工本费"]]
                 ,"template_id"=>"k5AUvxmGk7LO3Et6li5_dRKfEVgc-bhRRG4G9pxcYVc"];
         }elseif ($status==2){
             $data_tmp = ["touser"=>$openId,"form_id"=>$formId
-                ,"data"=>["keyword1"=>["DATA"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["DATA"=>"申请被驳回，（理由：".$status_2_because.")"],"keyword3"=>["DATA"=>"请重新提交申请"]]
+                ,"data"=>["keyword1"=>["value"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["value"=>"申请被驳回，（理由：".$status_2_because.")"],"keyword3"=>["value"=>"请重新提交申请"]]
                 ,"template_id"=>"k5AUvxmGk7LO3Et6li5_dRKfEVgc-bhRRG4G9pxcYVc"];
         }
 
