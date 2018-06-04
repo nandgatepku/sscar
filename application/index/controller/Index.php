@@ -392,6 +392,7 @@ class Index extends Base
         $driving_name = $_POST['driving_name'];
         $telephone = $_POST['telephone'];
         $major_name = $_POST['major_name'];
+        $formId = $_POST['formId'];
 //        $studentid = $_POST['studentid'];
         $openId = $_POST['openId'];
         $apply_id = $_POST['apply_id'];
@@ -401,6 +402,7 @@ class Index extends Base
         $update['driving_name'] = $driving_name;
         $update['telephone'] = $telephone;
         $update['major_name'] = $major_name;
+        $update['formId'] = $formId;
 //        $update['studentid'] = $studentid;
 
         $where['id'] = $apply_id;

@@ -137,10 +137,24 @@ class Index extends Base
     function pass_api()
     {
         $apply_id = $_POST['apply_id'];
-        $where['id'] = $apply_id;
-        $update['status']=1;
+        $token = action('index/wechat/get_token');
 
+        $where['id'] = $apply_id;
+
+        $update['status']=1;
         $res = Db::table('photo')->where($where)->update($update);
+
+        $sql = Db::table('photo')->where($where)->field('formId,openId,add_by_admin,car_number') ->select();
+
+        $formId = $sql['0']['formId'];
+        $openId = $sql['0']['openId'];
+        $car_number = $sql['0']['car_number'];
+        $add_by_admin = $sql['0']['add_by_admin'];
+
+        if($add_by_admin==0){
+            $ret = action('index/wechat/send_message',[$token,$openId,$formId,$apply_id,$car_number]);
+        }
+
         if($res){
             $status=["status"=>"ok"];
             return json($status);
@@ -157,6 +171,7 @@ class Index extends Base
         $update['status']=4;
 
         $res = Db::table('photo')->where($where)->update($update);
+
         if($res){
             $status=["status"=>"ok"];
             return json($status);
@@ -175,6 +190,17 @@ class Index extends Base
         $update['status_2_because']=$because;
 
         $res = Db::table('photo')->where($where)->update($update);
+        $token = action('index/wechat/get_token');
+        $sql = Db::table('photo')->where($where)->field('formId,openId,add_by_admin,car_number') ->select();
+
+        $formId = $sql['0']['formId'];
+        $openId = $sql['0']['openId'];
+        $car_number = $sql['0']['car_number'];
+        $add_by_admin = $sql['0']['add_by_admin'];
+
+        if($add_by_admin==0){
+            $ret = action('index/wechat/send_message',[$token,$openId,$formId,$apply_id,$car_number,2,$because]);
+        }
         if($res){
             $status=["status"=>"ok"];
             return json($status);
@@ -232,6 +258,7 @@ class Index extends Base
         $insert['telephone'] = $telephone;
         $insert['car_number'] = $car_number;
         $insert['openId'] = $user;
+        $insert['add_by_admin'] = 1;
         $insert['status'] = 0;
         $insert['update_time'] = time();
 

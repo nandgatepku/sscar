@@ -10,6 +10,7 @@ namespace app\index\controller;
 
 
 use app\index\common\Base;
+use think\Db;
 
 class Wechat extends Base
 {
@@ -47,6 +48,7 @@ class Wechat extends Base
     }
 
     public function get_token(){
+//        $get_sql = Db::table('wx_token')->
         $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx3dd12da36570cd80&secret=7799fedb17fd1463543704571be52cb4';
         $curl = curl_init(); // 启动一个CURL会话
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -83,7 +85,6 @@ class Wechat extends Base
         /* 根据请求类型设置特定参数 */
         $opts[CURLOPT_URL] = $url ;
 
-
         $opts[CURLOPT_POST] = 1;
         $opts[CURLOPT_POSTFIELDS] = $data;
 
@@ -110,6 +111,53 @@ class Wechat extends Base
         }else{
             return $data;
         }
+    }
+
+    public function send_message($token,$openId,$formId,$apply_id,$car_number,$status=1,$status_2_because=[]){
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token='.$token;
+
+        if($status==1){
+            $data_tmp = ["touser"=>$openId,"form_id"=>$formId
+                ,"data"=>["keyword1"=>["DATA"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["DATA"=>"审核通过"],"keyword3"=>["DATA"=>"请至学院6号楼领取车证，并现场缴纳10元工本费"]]
+                ,"template_id"=>"k5AUvxmGk7LO3Et6li5_dRKfEVgc-bhRRG4G9pxcYVc"];
+        }elseif ($status==2){
+            $data_tmp = ["touser"=>$openId,"form_id"=>$formId
+                ,"data"=>["keyword1"=>["DATA"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["DATA"=>"申请被驳回，（理由：".$status_2_because.")"],"keyword3"=>["DATA"=>"请重新提交申请"]]
+                ,"template_id"=>"k5AUvxmGk7LO3Et6li5_dRKfEVgc-bhRRG4G9pxcYVc"];
+        }
+
+        $data = json_encode($data_tmp);
+        $opts = array(
+            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+        );
+
+        /* 根据请求类型设置特定参数 */
+        $opts[CURLOPT_URL] = $url ;
+
+        $opts[CURLOPT_POST] = 1;
+        $opts[CURLOPT_POSTFIELDS] = $data;
+
+        if(is_string($data)){ //发送JSON数据
+            $opts[CURLOPT_HTTPHEADER] = array(
+                'Content-Type: application/json; charset=utf-8',
+                'Content-Length: ' . strlen($data),
+            );
+        }
+
+        /* 初始化并执行curl请求 */
+        $ch = curl_init();
+        curl_setopt_array($ch, $opts);
+        $ret  = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        //发生错误，抛出异常
+        if($error) throw new \Exception('请求发生错误：' . $error);
+
+        return $ret;
     }
 
     public function checkSignature()
