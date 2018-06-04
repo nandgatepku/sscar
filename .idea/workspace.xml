@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71be8b80-2406-4682-b013-243d1dc3c5c2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/application/admin/view/index/setting.html" afterPath="$PROJECT_DIR$/application/admin/view/index/setting.html" />
       <change beforePath="$PROJECT_DIR$/application/index/controller/Index.php" afterPath="$PROJECT_DIR$/application/index/controller/Index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,20 +14,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="check_wait.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/admin/view/index/check_wait.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#form#0;n#blockquote#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#blockquote#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#1;n#div#0;n#blockquote#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="check_valid.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/admin/view/index/check_valid.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -37,58 +24,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="upload_xls.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/admin/view/index/upload_xls.html">
+      <file leaf-file-name="setting.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/admin/view/index/setting.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-              <folding>
-                <element signature="n#style#0;n#b#0;n#form#0;n#div#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#form#0;n#div#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/admin/controller/Index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5368">
-              <caret line="346" column="38" lean-forward="true" selection-start-line="346" selection-start-column="38" selection-end-line="346" selection-end-column="38" />
-              <folding>
-                <element signature="e#39#65#0#PHP" expanded="true" />
-                <marker date="1528030891043" expanded="true" signature="16054:16072" ph="..." />
-                <marker date="1528030891043" expanded="false" signature="16202:16236" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="16237:16769" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="16246:16266" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="16246:16489" ph="..." />
-                <marker date="1528030891043" expanded="false" signature="16268:16282" ph="..." />
-                <marker date="1528030891043" expanded="false" signature="16313:16329" ph="..." />
-                <marker date="1528030891043" expanded="false" signature="16369:16383" ph="..." />
-                <marker date="1528030891043" expanded="false" signature="16413:16427" ph="..." />
-                <marker date="1528030891043" expanded="false" signature="16457:16471" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="16498:16516" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="16498:16760" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="16848:16866" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="17322:17339" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="17347:17353" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17353:17359" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17359:17365" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17365:17371" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17371:17377" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17377:17383" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17383:17389" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17389:17395" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17412:17429" ph="..." />
-                <marker date="1528030891043" expanded="true" signature="17434:17440" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17440:17446" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17446:17452" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17452:17458" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17458:17464" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17464:17470" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17470:17476" ph=" " />
-                <marker date="1528030891043" expanded="true" signature="17476:17482" ph=" " />
-              </folding>
+            <state relative-caret-position="459">
+              <caret line="17" column="102" lean-forward="true" selection-start-line="17" selection-start-column="102" selection-end-line="17" selection-end-column="102" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -96,8 +37,8 @@
       <file leaf-file-name="Index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="562">
-              <caret line="347" column="43" lean-forward="false" selection-start-line="347" selection-start-column="43" selection-end-line="347" selection-end-column="43" />
+            <state relative-caret-position="454">
+              <caret line="352" column="20" lean-forward="true" selection-start-line="352" selection-start-column="20" selection-end-line="352" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -159,7 +100,6 @@
         <option value="$PROJECT_DIR$/application/admin/view/index/checkbutton.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/index.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/photo.html" />
-        <option value="$PROJECT_DIR$/application/admin/view/index/setting.html" />
         <option value="$PROJECT_DIR$/application/admin/view/index/welcome.html" />
         <option value="$PROJECT_DIR$/application/config.php" />
         <option value="$PROJECT_DIR$/application/admin/view/index/check_valid.html" />
@@ -167,6 +107,7 @@
         <option value="$PROJECT_DIR$/application/admin/view/index/upload_xls.html" />
         <option value="$PROJECT_DIR$/application/admin/controller/Index.php" />
         <option value="$PROJECT_DIR$/application/admin/view/index/check_wait.html" />
+        <option value="$PROJECT_DIR$/application/admin/view/index/setting.html" />
         <option value="$PROJECT_DIR$/application/index/controller/Index.php" />
       </list>
     </option>
@@ -329,12 +270,12 @@
       <workItem from="1527341082115" duration="1798000" />
       <workItem from="1527503686909" duration="18818000" />
       <workItem from="1527775008541" duration="28579000" />
-      <workItem from="1528004852806" duration="26089000" />
+      <workItem from="1528004852806" duration="26809000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="331721000" />
+    <option name="totallyTimeSpent" value="332441000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -652,14 +593,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/admin/view/index/setting.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1647">
-          <caret line="61" column="23" lean-forward="false" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/admin/view/index/checkbutton.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2241">
@@ -704,17 +637,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/admin/view/index/upload_xls.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-          <folding>
-            <element signature="n#style#0;n#b#0;n#form#0;n#div#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#form#0;n#div#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/admin/view/index/check_wait.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -729,7 +651,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/admin/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5368">
+        <state relative-caret-position="-1917">
           <caret line="346" column="38" lean-forward="true" selection-start-line="346" selection-start-column="38" selection-end-line="346" selection-end-column="38" />
           <folding>
             <element signature="e#39#65#0#PHP" expanded="true" />
@@ -768,10 +690,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/upload_xls.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="51" lean-forward="false" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#b#0;n#form#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#form#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/admin/view/index/setting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="17" column="102" lean-forward="true" selection-start-line="17" selection-start-column="102" selection-end-line="17" selection-end-column="102" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/index/controller/Index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="347" column="43" lean-forward="false" selection-start-line="347" selection-start-column="43" selection-end-line="347" selection-end-column="43" />
+        <state relative-caret-position="454">
+          <caret line="352" column="20" lean-forward="true" selection-start-line="352" selection-start-column="20" selection-end-line="352" selection-end-column="44" />
           <folding />
         </state>
       </provider>

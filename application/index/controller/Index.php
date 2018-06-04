@@ -350,6 +350,14 @@ class Index extends Base
         return json($explain);
     }
 
+    public function get_sid_valid_number_api(){
+        $studentid = $_POST['studentid'];
+        $where['studentid'] = $studentid;
+        $where['status'] = 1;
+        $count = Db::table('photo')->where($where)->count();
+        return $count;
+    }
+
     public function apply_txt(){
         $driver_name = $_POST['driver_name'];
         $car_number = $_POST['car_number'];
