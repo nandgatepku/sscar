@@ -27,7 +27,7 @@
     </form>
     <div class="layui-inline">
         <button class="layui-btn layui-btn-normal" style="margin:10px 0 0 0;" onclick="x_admin_show('单个添加','./add.html',400,480)"><i class="layui-icon"></i>单个添加</button>
-        <button class="layui-btn layui-btn-mini" style="margin:10px 10px 0 0;" onclick="x_admin_show('上传Excel文件','./upload_xls',400,480)">上传xlsx文件</button>
+        <button class="layui-btn layui-btn-mini" style="margin:10px 10px 0 0;" onclick="x_admin_show('上传Excel文件','./upload_xls',400,200)">上传xlsx文件</button>
         <!--<form method="post" action="{:url('index/upload_xls')}" enctype="multipart/form-data">-->
             <!--<b style="margin-top: 4px;">Excel表批量导入：</b><a href="../../static/xls_example.xlsx"  target="_Blank" style="text-decoration:underline">批量导入示例表</a><br/>-->
             <!--<input type="file" name="excel" id="file_excel" value="" />-->
@@ -41,7 +41,7 @@
 <div class="layui-form news_list">
     <table class="layui-table">
         <colgroup>
-            <col width="50">
+            <col width="7%">
             <col width="7%">
             <col width="10%">
             <col width="10%">
@@ -57,7 +57,7 @@
         <thead>
         <tr>
             <!--<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>-->
-            <th></th>
+            <th>申请号</th>
             <th style="text-align:left;">部门/系</th>
             <th>机动车<br/>所有人</th>
             <th>驾驶员</th>
@@ -79,12 +79,13 @@
         {foreach name='list' id='id' key='k'}
         <?php $apply_id = $list["$k"]["id"];?>
         <tr>
-            <td>
-                <input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                    <i class="layui-icon"></i>
-                </div>
-            </td>
+            <!--<td>-->
+                <!--<input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">-->
+                <!--<div class="layui-unselect layui-form-checkbox" lay-skin="primary">-->
+                    <!--<i class="layui-icon"></i>-->
+                <!--</div>-->
+            <!--</td>-->
+            <td><b>{$list["$k"]['id']}</b></td>
             <td align="left">{$list["$k"]['major_name']}</td>
             <td>{$list["$k"]['driving_name']}</td>
             <td>{$list["$k"]['driver_name']}</td>
