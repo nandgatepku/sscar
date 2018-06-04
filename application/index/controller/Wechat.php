@@ -117,11 +117,11 @@ class Wechat extends Base
         $url = 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token='.$token;
 
         if($status==1){
-            $data_tmp = ["touser"=>$openId,"form_id"=>$formId
+            $data_tmp = ["touser"=>$openId,"form_id"=>$formId,"page"=>"pages/center/center"
                 ,"data"=>["keyword1"=>["value"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["value"=>"审核通过"],"keyword3"=>["value"=>"请至学院6号楼领取车证，并现场缴纳10元工本费"]]
                 ,"template_id"=>"k5AUvxmGk7LO3Et6li5_dRKfEVgc-bhRRG4G9pxcYVc"];
         }elseif ($status==2){
-            $data_tmp = ["touser"=>$openId,"form_id"=>$formId
+            $data_tmp = ["touser"=>$openId,"form_id"=>$formId,"page"=>"pages/center/center"
                 ,"data"=>["keyword1"=>["value"=>$apply_id."(车号：".$car_number.")"],"keyword2"=>["value"=>"申请被驳回，（理由：".$status_2_because.")"],"keyword3"=>["value"=>"请重新提交申请"]]
                 ,"template_id"=>"k5AUvxmGk7LO3Et6li5_dRKfEVgc-bhRRG4G9pxcYVc"];
         }
