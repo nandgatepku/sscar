@@ -329,6 +329,12 @@ class Index extends Base
         }
     }
 
+    public function get_lawcontent_api(){
+        $where['thing'] = 'law';
+        $law_content = Db::table('setting')->where($where)->field('content')->select();
+        return json($law_content);
+    }
+
     public function apply_txt(){
         $driver_name = $_POST['driver_name'];
         $car_number = $_POST['car_number'];
