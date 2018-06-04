@@ -332,7 +332,22 @@ class Index extends Base
     public function get_lawcontent_api(){
         $where['thing'] = 'law';
         $law_content = Db::table('setting')->where($where)->field('content')->select();
+        $law_content = $law_content['0']['content'];
         return json($law_content);
+    }
+
+    public function get_most_number_api(){
+        $where['thing'] = 'most_number';
+        $most_number = Db::table('setting')->where($where)->field('number')->select();
+        $most_number = $most_number['0']['number'];
+        return json($most_number);
+    }
+
+    public function get_explain_api(){
+        $where['thing'] = 'explain';
+        $explain = Db::table('setting')->where($where)->field('content')->select();
+        $explain = $explain['0']['content'];
+        return json($explain);
     }
 
     public function apply_txt(){
