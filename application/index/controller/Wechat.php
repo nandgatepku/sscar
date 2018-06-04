@@ -110,7 +110,26 @@ class Wechat extends Base
         }else{
             return $data;
         }
+    }
 
+    public function checkSignature()
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $echostr = $_GET["echostr"];
+
+        $token = 'sscar';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            return $echostr;
+        }else{
+            return false;
+        }
     }
 
 }
