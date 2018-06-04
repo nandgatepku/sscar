@@ -333,7 +333,21 @@ class Index extends Base
         $where['thing'] = 'law';
         $law_content = Db::table('setting')->where($where)->field('content')->select();
         $law_content = $law_content['0']['content'];
-        return json($law_content);
+        $content_sql = $law_content;
+        $content_new = [];
+        for($i=1; $i<=strlen($content_sql); $i++){
+            $flag_1 = strpos($law_content,"<p>");
+            $flag_2 = strpos($law_content,"</p>");
+            $content_new[] = substr($law_content,$flag_1 +3,$flag_2 -3);
+            $content_back = substr($law_content,$flag_2 +4);
+            if(strpos($content_back,"<p>")===false){
+                break;
+            }else{
+                $law_content =$content_back;
+//                continue;
+            }
+        }
+        return json($content_new);
     }
 
     public function get_most_number_api(){
@@ -345,9 +359,23 @@ class Index extends Base
 
     public function get_explain_api(){
         $where['thing'] = 'explain';
-        $explain = Db::table('setting')->where($where)->field('content')->select();
-        $explain = $explain['0']['content'];
-        return json($explain);
+        $explain_content = Db::table('setting')->where($where)->field('content')->select();
+        $explain_content = $explain_content['0']['content'];
+        $content_sql = $explain_content;
+        $content_new = [];
+        for($i=1; $i<=strlen($content_sql); $i++){
+            $flag_1 = strpos($explain_content,"<p>");
+            $flag_2 = strpos($explain_content,"</p>");
+            $content_new[] = substr($explain_content,$flag_1 +3,$flag_2 -3);
+            $content_back = substr($explain_content,$flag_2 +4);
+            if(strpos($content_back,"<p>")===false){
+                break;
+            }else{
+                $explain_content =$content_back;
+//                continue;
+            }
+        }
+        return json($content_new);
     }
 
     public function get_sid_valid_number_api(){
