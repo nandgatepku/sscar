@@ -47,14 +47,6 @@ class Wechat extends Base
         echo $signStr."\n";
     }
 
-    public function ttt(){
-        $get_sql = Db::table('wx_token')->order('id','desc')->limit(1)->select();
-        $get_sql = $get_sql['0'];
-        $old_time = $get_sql['time'];
-        $old_token = $get_sql['token'];
-        return $old_token;
-    }
-
     public function get_token(){
         $get_sql = Db::table('wx_token')->order('id','desc')->limit(1)->select();
         $get_sql = $get_sql['0'];

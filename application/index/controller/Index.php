@@ -34,9 +34,7 @@ class Index extends Base
                 }else{
                     return $this->redirect('http://weixiao.qq.com/apps/school-auth/login?media_id=gh_c5c47de251c1&app_key=116BF40DF1AFB055&redirect_uri=https://icampus.ss.pku.edu.cn/iaaa/index.php/Home/Index/appredirect//appid/sspkuuwcychwknfwfc/detail/1.html');
                 }
-
             }
-
         }else{
             return $this->fetch('index');
         }
@@ -221,7 +219,6 @@ class Index extends Base
             }
         }
     }
-
 
     public function upload()
     {
